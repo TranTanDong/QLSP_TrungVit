@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">QLSP_TrungVit</string>
+    <string name="app_name">Quản Lý Sản Phẩm</string>
+    <string name="app_mua">Thêm giao dịch</string>
 </resources>

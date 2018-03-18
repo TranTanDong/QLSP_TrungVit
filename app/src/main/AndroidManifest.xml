@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MuaVao" />
+        <activity android:name=".MuaVao"
+            android:label="@string/app_mua"/>
         <activity android:name=".BanRa" />
         <activity android:name=".KhachHang" />
         <activity android:name=".ThongKe"></activity>
