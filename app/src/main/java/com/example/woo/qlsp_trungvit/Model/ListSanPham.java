@@ -4,14 +4,14 @@ package com.example.woo.qlsp_trungvit.Model;
  * Created by Woo on 3/17/2018.
  */
 
-public class ListThongTinSP {
+public class ListSanPham {
     private int soLuong;
     private int donGia;
     private String loai;
     private String thoiGian;
     private String tenKhachHang;
 
-    public ListThongTinSP() {
+    public ListSanPham() {
         soLuong = 0;
         donGia = 0;
         loai = "So";
@@ -19,7 +19,7 @@ public class ListThongTinSP {
         tenKhachHang = "NVA";
     }
 
-    public ListThongTinSP(int soLuong, int donGia, String loai, String thoiGian, String tenKhachHang) {
+    public ListSanPham(int soLuong, int donGia, String loai, String thoiGian, String tenKhachHang) {
         this.soLuong = soLuong;
         this.donGia = donGia;
         this.loai = loai;

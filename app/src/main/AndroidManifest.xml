@@ -16,11 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MuaVao"
-            android:label="@string/app_mua"/>
+        <activity
+            android:name=".MuaVao"
+            android:label="@string/app_mua" />
         <activity android:name=".BanRa" />
-        <activity android:name=".KhachHang" />
-        <activity android:name=".ThongKe"></activity>
+        <activity
+            android:name=".KhachHang"
+            android:label="@string/app_khachhang" />
+        <activity android:name=".ThongKe" />
+        <activity android:name=".AddKhachHang"
+            android:label="@string/app_addkhachhang"></activity>
     </application>
 
 </manifest>
