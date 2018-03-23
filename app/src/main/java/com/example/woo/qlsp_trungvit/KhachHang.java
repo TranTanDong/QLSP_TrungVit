@@ -58,7 +58,7 @@ public class KhachHang extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.add){
+        if(item.getItemId() == R.id.addkhachhang){
             Intent intent = new Intent(KhachHang.this, AddKhachHang.class);
             startActivityForResult(intent, CODE_REQUEST_KHACHHANG);
         }
