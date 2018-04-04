@@ -1,5 +1,10 @@
 package com.example.woo.qlsp_trungvit.Adapter;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -86,11 +91,31 @@ public class KhachHangAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof KhachHangViewHolder){
-            ListKhachHang khachHang = khachHangs.get(position);
-            KhachHangViewHolder khachHangViewHolder = (KhachHangViewHolder) holder;
+            final ListKhachHang khachHang = khachHangs.get(position);
+            final KhachHangViewHolder khachHangViewHolder = (KhachHangViewHolder) holder;
             khachHangViewHolder.tv_tenKH.setText(khachHang.getTenKH());
             khachHangViewHolder.tv_sdtKH.setText(khachHang.getSdtKH());
             khachHangViewHolder.tv_diachiKH.setText(khachHang.getDiachiKH());
+
+//            khachHangViewHolder.btn_Goi.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Uri uri = Uri.parse("tel:"+ khachHangViewHolder.tv_sdtKH.getText().toString());
+//                    Intent nIntent = new Intent(Intent.ACTION_CALL);
+//                    nIntent.setData(uri);
+//                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+//                        // TODO: Consider calling
+//                        //    ActivityCompat#requestPermissions
+//                        // here to request the missing permissions, and then overriding
+//                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                        //                                          int[] grantResults)
+//                        // to handle the case where the user grants the permission. See the documentation
+//                        // for ActivityCompat#requestPermissions for more details.
+//                        return;
+//                    }
+//
+//                }
+//            });
         }
         else if (holder instanceof LoadingViewHolder){
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;

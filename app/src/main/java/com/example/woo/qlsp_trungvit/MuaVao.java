@@ -9,6 +9,10 @@ import android.view.MenuItem;
 
 public class MuaVao extends AppCompatActivity {
 
+    public static final int CODE_REQUEST_ADDSP = 3;
+    public static final int CODE_RESULT_ADDSP = 4;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +39,8 @@ public class MuaVao extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.add){
-            Intent intent = new Intent(MuaVao.this, ThongKe.class);
-            startActivity(intent);
+            Intent intent = new Intent(MuaVao.this, AddGiaoDich.class);
+            startActivityForResult(intent, CODE_REQUEST_ADDSP);
         }
         return super.onOptionsItemSelected(item);
     }

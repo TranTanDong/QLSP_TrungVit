@@ -1,6 +1,10 @@
 package com.example.woo.qlsp_trungvit;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,8 +12,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.woo.qlsp_trungvit.Adapter.KhachHangAdapter;
+import com.example.woo.qlsp_trungvit.Holder.KhachHangViewHolder;
 import com.example.woo.qlsp_trungvit.Model.ListKhachHang;
 
 import java.util.ArrayList;
@@ -33,16 +39,22 @@ public class KhachHang extends AppCompatActivity {
 
     private void addControls() {
         khachHangs.add(new ListKhachHang("Mơ Văn Mộng", "0125458740", "P1-ST"));
-        khachHangs.add(new ListKhachHang("Ngớ Thị Ngẩn", "0125875840", "P2-ST"));
-        khachHangs.add(new ListKhachHang("Điên Nặng Điện", "0125452740", "P3-ST"));
-        khachHangs.add(new ListKhachHang("Khung Quyền Khùng", "0141458740", "P4-ST"));
-        khachHangs.add(new ListKhachHang("Cho Sắc Chó", "0125898740", "P5-ST"));
+        khachHangs.add(new ListKhachHang("Ngớ Thị Ngẩn", "0125875840", "P2-CM"));
+        khachHangs.add(new ListKhachHang("Điên Nặng Điện", "0125452740", "P3-TN"));
+        khachHangs.add(new ListKhachHang("Khung Quyền Khùng", "0141458740", "P4-HN"));
+        khachHangs.add(new ListKhachHang("Ê Sắc Ế", "0125898740", "P5-QN"));
+        khachHangs.add(new ListKhachHang("Láo Văn Cá", "012543740", "P6-VT"));
+        khachHangs.add(new ListKhachHang("Bò Thị Lếch", "012587650", "P7-ĐN"));
+        khachHangs.add(new ListKhachHang("Kiếm Văn Chuyện", "0129894740", "P8-KG"));
+        khachHangs.add(new ListKhachHang("Đánh Văn Chạy", "0125890740", "P9-KH"));
+        khachHangs.add(new ListKhachHang("Chạy Thị Chú", "0123458740", "Q1-HG"));
 
         rcv_khachHang = (RecyclerView)findViewById(R.id.rcv_khachHang);
         rcv_khachHang.setLayoutManager(new LinearLayoutManager(this));
         khachHangAdapter = new KhachHangAdapter(this, rcv_khachHang, khachHangs);
         rcv_khachHang.setAdapter(khachHangAdapter);
     }
+
 
     private void addEvents() {
 
@@ -69,5 +81,13 @@ public class KhachHang extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == CODE_REQUEST_KHACHHANG && resultCode == CODE_RESULT_KHACHHANG){
+            String tenKH = data.getStringExtra("TenKH");
+            String sdtKH = data.getStringExtra("SDTKH");
+            String diachiKH = data.getStringExtra("DiaChiKH");
+
+            khachHangs.add(new ListKhachHang(tenKH, sdtKH, diachiKH));
+            khachHangAdapter.notifyDataSetChanged();
+        }
     }
 }
