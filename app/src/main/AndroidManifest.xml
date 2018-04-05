@@ -29,7 +29,10 @@
         <activity
             android:name=".AddKhachHang"
             android:label="@string/app_addkhachhang" />
-        <activity android:name=".AddGiaoDich"></activity>
+        <activity android:name=".AddGiaoDich"
+            android:label="@string/app_addgiaodich">
+
+        </activity>
     </application>
 
 </manifest>

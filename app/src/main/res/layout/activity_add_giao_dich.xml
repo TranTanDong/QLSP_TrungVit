@@ -11,11 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        android:layout_margin="8dp">
+        android:layout_margin="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:orientation="horizontal">
 
             <TextView
@@ -25,12 +25,14 @@
                 android:textSize="24dp"/>
 
             <EditText
+                android:id="@+id/et_soLuong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
                 android:gravity="right"
-                android:hint="2000"
-                android:textSize="24dp"/>
+                android:inputType="number"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="24dp"
+                android:textStyle="bold|italic" />
 
         </LinearLayout>
 
@@ -40,11 +42,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        android:layout_margin="8dp">
+        android:layout_margin="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:orientation="horizontal">
 
             <TextView
@@ -54,12 +56,14 @@
                 android:textSize="24dp"/>
 
             <EditText
+                android:id="@+id/et_donGia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
                 android:gravity="right"
-                android:hint="2000"
-                android:textSize="24dp"/>
+                android:inputType="number"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="24dp"
+                android:textStyle="bold|italic" />
 
         </LinearLayout>
 
@@ -69,7 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        android:layout_margin="8dp">
+        android:layout_margin="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -78,17 +82,18 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="Loại:"
                 android:textSize="24dp"/>
 
             <EditText
+                android:id="@+id/et_loai"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
                 android:gravity="right"
-                android:hint="So"
-                android:textSize="24dp"/>
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="24dp"
+                android:textStyle="bold|italic" />
 
         </LinearLayout>
 
@@ -98,26 +103,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        android:layout_margin="8dp">
+        android:layout_margin="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Thời gian:"
                 android:textSize="24dp"/>
 
-            <EditText
+            <TextView
+                android:id="@+id/tv_thoiGian"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:layout_gravity="center"
                 android:gravity="right"
-                android:hint="22/12/2012"
-                android:textSize="24dp"/>
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="24dp"
+                android:textStyle="bold|italic" />
 
         </LinearLayout>
 
@@ -127,11 +135,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        android:layout_margin="8dp">
+        android:layout_margin="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:orientation="horizontal">
 
             <TextView
@@ -141,12 +149,13 @@
                 android:textSize="24dp"/>
 
             <EditText
+                android:id="@+id/et_khachHang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
                 android:gravity="right"
-                android:hint="NVA"
-                android:textSize="24dp"/>
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="24dp"
+                android:textStyle="bold|italic" />
 
         </LinearLayout>
 
@@ -163,36 +172,56 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_tinhTien"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TÍNH TIỀN"
             android:textSize="24dp" />
 
         <TextView
+            android:id="@+id/tv_tinhTien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="4.000.000VND"
+            android:gravity="right"
+            android:textColor="@android:color/holo_blue_light"
             android:textSize="24dp"
-            android:gravity="right"/>
+            android:textStyle="bold|italic" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:weightSum="3">
 
         <ImageView
+            android:id="@+id/img_loaiGiaoDich"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_weight="1"
             android:src="@drawable/ic_muavao"/>
 
         <Button
-            android:layout_width="match_parent"
+            android:id="@+id/btn_huyGiaoDich"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="THÊM GIAO DỊCH"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:textSize="24dp"
-            android:layout_gravity="center_vertical"/>
+            android:text="HỦY BỎ"
+            android:layout_marginRight="10dp"/>
+
+        <Button
+            android:id="@+id/btn_luuGiaoDich"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:text="LƯU"
+            android:textSize="24dp"
+            android:layout_gravity="center_vertical" />
 
     </LinearLayout>
 

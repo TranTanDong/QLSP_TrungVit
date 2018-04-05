@@ -9,18 +9,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.Toast;
 
 import com.example.woo.qlsp_trungvit.Adapter.KhachHangAdapter;
-import com.example.woo.qlsp_trungvit.Holder.KhachHangViewHolder;
+import com.example.woo.qlsp_trungvit.Interface.IKhachHang;
 import com.example.woo.qlsp_trungvit.Model.ListKhachHang;
 
 import java.util.ArrayList;
 
-public class KhachHang extends AppCompatActivity {
+public class KhachHang extends AppCompatActivity implements IKhachHang {
 
     public static final int CODE_REQUEST_KHACHHANG = 1;
     public static final int CODE_RESULT_KHACHHANG = 2;
@@ -51,7 +52,7 @@ public class KhachHang extends AppCompatActivity {
 
         rcv_khachHang = (RecyclerView)findViewById(R.id.rcv_khachHang);
         rcv_khachHang.setLayoutManager(new LinearLayoutManager(this));
-        khachHangAdapter = new KhachHangAdapter(this, rcv_khachHang, khachHangs);
+        khachHangAdapter = new KhachHangAdapter(this, khachHangs, this);
         rcv_khachHang.setAdapter(khachHangAdapter);
     }
 
@@ -89,5 +90,31 @@ public class KhachHang extends AppCompatActivity {
             khachHangs.add(new ListKhachHang(tenKH, sdtKH, diachiKH));
             khachHangAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void DelKhachHang(final int pos) {
+        khachHangs.remove(pos);
+        Toast.makeText(this,"Đã Click Xóa", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void CallKhachHang(final int pos) {
+        Uri uri = Uri.parse("tel:"+khachHangs.get(pos).getSdtKH().toString());
+        //Log.i("TTD", uri.toString());
+        Intent cIntent = new Intent(Intent.ACTION_DIAL);
+        cIntent.setData(uri);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        startActivity(cIntent);
+        //Toast.makeText(this,"Đã Click Gọi", Toast.LENGTH_LONG).show();
     }
 }

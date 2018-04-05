@@ -2,55 +2,72 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="270dp"
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="10dp">
+        app:cardCornerRadius="10dp"
+        android:layout_margin="2dp"
+        app:cardBackgroundColor="@android:color/darker_gray">
 
-        <TextView
-            android:id="@+id/tv_tenKH"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Trần Văn A"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="24dp"
-            android:textStyle="bold|italic" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_sdtKH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0123456789"
-            android:textStyle="bold|italic" />
+            <LinearLayout
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="10dp">
 
-        <TextView
-            android:id="@+id/tv_diachiKH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hồng Dân - Bạc Liêu"
-            android:textStyle="bold|italic" />
+                <TextView
+                    android:id="@+id/tv_tenKH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trần Văn A"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="24dp"
+                    android:textStyle="bold|italic" />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_sdtKH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0123456789"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/tv_diachiKH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hồng Dân - Bạc Liêu"
+                    android:textStyle="bold|italic" />
+
+            </LinearLayout>
 
 
-    <ImageView
-        android:id="@+id/btn_goi"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginRight="5dp"
-        app:srcCompat="@android:drawable/ic_menu_call" />
+            <ImageView
+                android:id="@+id/btn_goi"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"
+                app:srcCompat="@android:drawable/ic_menu_call" />
 
-    <ImageView
-        android:id="@+id/btn_xoa"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+            <ImageView
+                android:id="@+id/btn_xoa"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                app:srcCompat="@android:drawable/ic_menu_delete" />
+
+
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
 
 
 </LinearLayout>
