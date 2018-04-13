@@ -13,6 +13,7 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_muavao"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="5dp"
@@ -30,7 +31,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_muavao" />
+                android:src="@drawable/ic_muavao" />
 
             <TextView
                 android:id="@+id/textView"
@@ -45,6 +46,7 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_banra"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="5dp"
@@ -62,7 +64,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_banra" />
+                android:src="@drawable/ic_banra" />
 
             <TextView
                 android:id="@+id/textView1"
@@ -77,6 +79,7 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_khachhang"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="5dp"
@@ -94,7 +97,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_khachhang" />
+                android:src="@drawable/ic_khachhang" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -109,6 +112,7 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_thongke"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="5dp"
@@ -126,7 +130,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_thongke" />
+                android:src="@drawable/ic_thongke" />
 
             <TextView
                 android:id="@+id/textView4"

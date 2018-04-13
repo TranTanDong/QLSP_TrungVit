@@ -6,27 +6,37 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class AddGiaoDich extends AppCompatActivity {
 
-    TextView tv_tinhTien, tv_thoiGian;
-    EditText et_soLuong, et_donGia;
-    Button btn_luuGiaDich, btn_huyGiaoDich, btn_tinhTien;
+    private TextView tv_tinhTien, tv_thoiGian;
+    private EditText et_soLuong, et_donGia;
+    private Button btn_luuGiaDich, btn_huyGiaoDich, btn_tinhTien;
+    private Spinner spn_loai;
 
-    Calendar calendar = Calendar.getInstance();
-    SimpleDateFormat sdf = new SimpleDateFormat("dd - MM - yyyy");
-    DecimalFormat dcf = new DecimalFormat("#,###,###");
+    private Calendar calendar = Calendar.getInstance();
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private DecimalFormat dcf = new DecimalFormat("#,###,###");
+
+    public static ArrayList<String> arrayList = new ArrayList<String>();
+
+    private int lastesSelected = -1; //Vị trí click Spinner
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +54,22 @@ public class AddGiaoDich extends AppCompatActivity {
         btn_tinhTien = findViewById(R.id.btn_tinhTien);
         btn_huyGiaoDich = findViewById(R.id.btn_huyGiaoDich);
         btn_luuGiaDich = findViewById(R.id.btn_luuGiaoDich);
+
+        //Loại
+        arrayList.clear();
+        for (int i = 0; i < KhachHang.khachHangs.size(); i++){
+            Log.i("ArrayList",KhachHang.khachHangs.get(i).getTenKH());
+            arrayList.add(KhachHang.khachHangs.get(i).getTenKH());
+        }
+
+        spn_loai = findViewById(R.id.spn_loai);
+        ArrayAdapter<String> adapterLoai = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_spinner_item,
+                arrayList
+        );
+        adapterLoai.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        spn_loai.setAdapter(adapterLoai);
 
         //Set et_thoiGian
         tv_thoiGian.setText(sdf.format(calendar.getTime()));
@@ -63,6 +89,20 @@ public class AddGiaoDich extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 xuLyTinhTien();
+            }
+        });
+
+        //Xử lý click Spinner
+        spn_loai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(AddGiaoDich.this, "Bạn vừa chọn "+arrayList.get(i), Toast.LENGTH_LONG).show();
+                lastesSelected = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
     }

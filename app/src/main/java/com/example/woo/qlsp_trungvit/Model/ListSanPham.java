@@ -5,6 +5,7 @@ package com.example.woo.qlsp_trungvit.Model;
  */
 
 public class ListSanPham {
+    private int maGiaoDich;
     private int soLuong;
     private int donGia;
     private String loai;
@@ -12,6 +13,7 @@ public class ListSanPham {
     private String tenKhachHang;
 
     public ListSanPham() {
+        maGiaoDich = 0;
         soLuong = 0;
         donGia = 0;
         loai = "So";
@@ -19,12 +21,21 @@ public class ListSanPham {
         tenKhachHang = "NVA";
     }
 
-    public ListSanPham(int soLuong, int donGia, String loai, String thoiGian, String tenKhachHang) {
+    public ListSanPham(int maGiaoDich, int soLuong, int donGia, String loai, String thoiGian, String tenKhachHang) {
+        this.maGiaoDich = maGiaoDich;
         this.soLuong = soLuong;
         this.donGia = donGia;
         this.loai = loai;
         this.thoiGian = thoiGian;
         this.tenKhachHang = tenKhachHang;
+    }
+
+    public int getMaGiaoDich() {
+        return maGiaoDich;
+    }
+
+    public void setMaGiaoDich(int maGiaoDich) {
+        this.maGiaoDich = maGiaoDich;
     }
 
     public int getSoLuong() {

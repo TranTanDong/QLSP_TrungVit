@@ -20,17 +20,22 @@
         </activity>
         <activity
             android:name=".MuaVao"
-            android:label="@string/app_mua" />
+            android:label="@string/app_mua"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".BanRa" />
         <activity
             android:name=".KhachHang"
-            android:label="@string/app_khachhang" />
-        <activity android:name=".ThongKe" />
+            android:label="@string/app_khachhang"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ThongKe"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".AddKhachHang"
-            android:label="@string/app_addkhachhang" />
+            android:label="@string/app_addkhachhang"
+            android:parentActivityName=".KhachHang"/>
         <activity android:name=".AddGiaoDich"
-            android:label="@string/app_addgiaodich">
+            android:label="@string/app_addgiaodich"
+            android:parentActivityName=".MuaVao">
 
         </activity>
     </application>

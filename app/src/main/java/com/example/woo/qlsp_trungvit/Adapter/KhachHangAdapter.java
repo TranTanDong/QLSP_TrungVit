@@ -47,9 +47,10 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.Khac
         holder.tv_sdtKH.setText(khachHang.getSdtKH());
         holder.tv_diachiKH.setText(khachHang.getDiachiKH());
 
-        //Xử lý Click Xóa và Gọi
+        //Xử lý Click Xóa, Gọi, ClickItem
         holder.btn_Goi.setTag(position);
         holder.btn_Xoa.setTag(position);
+        holder.itemView.setTag(position);
         holder.btn_Goi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +64,14 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.Khac
             public void onClick(View view) {
                 int j = Integer.parseInt(view.getTag().toString());
                 iKhachHang.DelKhachHang(j);
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int t = Integer.parseInt(view.getTag().toString());
+                iKhachHang.ClickItemRecyclerview(t);
             }
         });
 

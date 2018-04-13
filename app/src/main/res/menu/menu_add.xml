@@ -4,7 +4,7 @@
     <item
         android:id="@+id/add"
         android:title="Thêm giao dịch"
-        android:icon="@drawable/ic_themgiaodich"
+        android:icon="@android:drawable/ic_menu_add"
         app:showAsAction="ifRoom" />
 
 </menu>
