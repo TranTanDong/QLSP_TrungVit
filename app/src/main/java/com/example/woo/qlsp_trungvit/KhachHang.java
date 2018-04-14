@@ -79,6 +79,9 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void addControls() {
+
+        //Thêm dữ liệu vào khachHangs để test
+        khachHangs.clear();
         khachHangs.add(new ListKhachHang(1, "Mơ Văn Mộng", "0125458740", "P1-ST"));
         khachHangs.add(new ListKhachHang(2, "Ngớ Thị Ngẩn", "0125875840", "P2-CM"));
         khachHangs.add(new ListKhachHang(3, "Điên Nặng Điện", "0125452740", "P3-TN"));
@@ -90,6 +93,7 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
         khachHangs.add(new ListKhachHang(9, "Đánh Văn Chạy", "0125890740", "P9-KH"));
         khachHangs.add(new ListKhachHang(10, "Chạy Thị Chú", "0123458740", "Q1-HG"));
 
+        //Xử lý RecyclerView rcv_khachHang
         rcv_khachHang = (RecyclerView)findViewById(R.id.rcv_khachHang);
         rcv_khachHang.setLayoutManager(new LinearLayoutManager(this));
         khachHangAdapter = new KhachHangAdapter(this, khachHangs, this);

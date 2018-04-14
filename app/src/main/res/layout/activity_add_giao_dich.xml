@@ -147,16 +147,17 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center"
                 android:text="Khách hàng:"
                 android:textSize="24dp"/>
 
-            <EditText
-                android:id="@+id/et_khachHang"
+            <Spinner
+                android:id="@+id/spn_khachHang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:textColor="@android:color/holo_blue_light"
+                android:layout_gravity="center"
+                android:textAlignment="center"
                 android:textSize="24dp"
                 android:textStyle="bold|italic" />
 
@@ -204,7 +205,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_muavao"/>
+            android:src="@drawable/ic_themkhachhang"/>
 
         <Button
             android:id="@+id/btn_huyGiaoDich"
@@ -220,11 +221,12 @@
             android:id="@+id/btn_luuGiaoDich"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:text="LƯU"
             android:textSize="24dp"
-            android:layout_gravity="center_vertical" />
+            android:visibility="invisible" />
 
     </LinearLayout>
 
