@@ -51,6 +51,7 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.Khac
         holder.btn_Goi.setTag(position);
         holder.btn_Xoa.setTag(position);
         holder.itemView.setTag(position);
+        holder.btn_Sua.setTag(position);
         holder.btn_Goi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +72,15 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.Khac
             @Override
             public void onClick(View view) {
                 int t = Integer.parseInt(view.getTag().toString());
-                iKhachHang.ClickItemRecyclerview(t);
+                iKhachHang.ClickItemKhachHang(t);
+            }
+        });
+
+        holder.btn_Sua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int k = Integer.parseInt(view.getTag().toString());
+                iKhachHang.EditKhachHang(k);
             }
         });
 
@@ -83,11 +92,12 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.Khac
     }
 
     public class KhachHangViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_tenKH;
-        public TextView tv_sdtKH;
-        public TextView tv_diachiKH;
-        public ImageView btn_Goi;
-        public ImageView btn_Xoa;
+        TextView tv_tenKH;
+        TextView tv_sdtKH;
+        TextView tv_diachiKH;
+        ImageView btn_Goi;
+        ImageView btn_Xoa;
+        ImageView btn_Sua;
 
         public KhachHangViewHolder(View itemView) {
             super(itemView);
@@ -97,6 +107,7 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.Khac
             tv_diachiKH = (TextView)itemView.findViewById(R.id.tv_diachiKH);
             btn_Goi = (ImageView)itemView.findViewById(R.id.btn_goi);
             btn_Xoa = (ImageView)itemView.findViewById(R.id.btn_xoa);
+            btn_Sua = (ImageView)itemView.findViewById(R.id.btn_sua);
         }
     }
 

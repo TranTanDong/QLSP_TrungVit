@@ -1,6 +1,7 @@
 package com.example.woo.qlsp_trungvit;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -9,14 +10,19 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.Manifest;
 
@@ -138,13 +144,36 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
         }
     }
 
+
+    //Click Button Xóa Khách Hàng
     @Override
     public void DelKhachHang(final int pos) {
-        khachHangs.remove(pos);
-        khachHangAdapter.notifyDataSetChanged();
-        Toast.makeText(this,"Đã Click Xóa", Toast.LENGTH_LONG).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(KhachHang.this);
+        builder.setTitle("Xóa Khách Hàng");
+        builder.setMessage("Bạn muốn xóa '"+khachHangs.get(pos).getTenKH()+"'?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                khachHangs.remove(pos);
+                khachHangAdapter.notifyDataSetChanged();
+//                Toast.makeText(this,"Đã Click Xóa", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
     }
 
+    //Click Button Gọi Khách Hàng
     @Override
     public void CallKhachHang(final int pos) {
         vt = pos;
@@ -176,8 +205,61 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
 
     }
 
-    @Override
-    public void ClickItemRecyclerview(int pos) {
 
+    //Click Item Khách Hàng
+    @Override
+    public void ClickItemKhachHang(int pos) {
+        Toast.makeText(KhachHang.this,khachHangs.get(pos).getMaKH()+" "+khachHangs.get(pos).getTenKH(), Toast.LENGTH_SHORT).show();
+    }
+
+    //Click Button Sửa Khách Hàng
+    @Override
+    public void EditKhachHang(final int pos) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(KhachHang.this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_edit_khachhang, null);
+        builder.setView(dialogView);
+        builder.setCancelable(false);
+
+        final EditText et_tenKH_edit, et_sdt_edit, et_diachi_edit;
+        et_tenKH_edit = dialogView.findViewById(R.id.et_tenKH_edit);
+        et_sdt_edit = dialogView.findViewById(R.id.et_sdt_edit);
+        et_diachi_edit = dialogView.findViewById(R.id.et_diachi_edit);
+
+        //Gán dữ liệu
+        et_tenKH_edit.setText(khachHangs.get(pos).getTenKH().toString());
+        et_sdt_edit.setText(khachHangs.get(pos).getSdtKH().toString());
+        et_diachi_edit.setText(khachHangs.get(pos).getDiachiKH());
+
+
+        builder.setPositiveButton("SỬA", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String tenKH = khachHangs.get(pos).getTenKH().toString();
+                String sdtKH = khachHangs.get(pos).getSdtKH().toString();
+                String dcKH = khachHangs.get(pos).getDiachiKH().toString();
+                int maKH = khachHangs.get(pos).getMaKH();
+                if (tenKH.equals(et_tenKH_edit.getText().toString()) && sdtKH.equals(et_sdt_edit.getText().toString()) && dcKH.equals(et_diachi_edit.getText().toString())){
+                    dialogInterface.dismiss();
+                }else {
+                    khachHangs.remove(pos);
+                    khachHangs.add(new ListKhachHang(maKH, et_tenKH_edit.getText().toString(), et_sdt_edit.getText().toString(), et_diachi_edit.getText().toString()));
+                    khachHangAdapter.notifyDataSetChanged();
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+
+        builder.setNegativeButton("HỦY", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        //Toast.makeText(KhachHang.this, "Muốn sửa "+khachHangs.get(pos).getTenKH()+" à! Đéo nhé!", Toast.LENGTH_SHORT).show();
     }
 }

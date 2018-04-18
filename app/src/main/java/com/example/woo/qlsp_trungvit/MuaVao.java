@@ -91,7 +91,7 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
 
             listSanPhams.add(new ListSanPham(listSanPhams.size()+1, SL, DG, L, TG, KH));
             sanPhamAdapter.notifyDataSetChanged();
-            Toast.makeText(MuaVao.this, "Thêm giao dịch thành công!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MuaVao.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
         }
 
     }

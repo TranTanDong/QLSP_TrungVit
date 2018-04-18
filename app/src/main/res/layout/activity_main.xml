@@ -8,7 +8,6 @@
     android:padding="5dp"
     android:paddingBottom="5dp"
     android:weightSum="4"
-
     tools:context="com.example.woo.qlsp_trungvit.MainActivity">
 
     <android.support.v7.widget.CardView

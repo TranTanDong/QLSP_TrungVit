@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.woo.qlsp_trungvit.AddKhachHang">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SỬA KHÁCH HÀNG"
+        android:textStyle="italic|bold"
+        android:textSize="32dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
+        android:textColor="@android:color/holo_orange_dark"
+        android:layout_gravity="center"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -14,7 +22,7 @@
         android:textColor="@android:color/holo_orange_dark" />
 
     <EditText
-        android:id="@+id/et_tenKH"
+        android:id="@+id/et_tenKH_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="30"
@@ -27,7 +35,7 @@
         android:textColor="@android:color/holo_orange_dark" />
 
     <EditText
-        android:id="@+id/et_sdt"
+        android:id="@+id/et_sdt_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="11"
@@ -41,33 +49,11 @@
         android:textColor="@android:color/holo_orange_dark" />
 
     <EditText
-        android:id="@+id/et_diachi"
+        android:id="@+id/et_diachi_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="50"
         android:maxLength="50"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_huy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Hủy"
-            android:textColor="@android:color/holo_orange_dark"/>
-
-        <Button
-            android:id="@+id/btn_them"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Thêm"
-            android:textColor="@android:color/holo_orange_dark"/>
-    </LinearLayout>
 
 
 </LinearLayout>

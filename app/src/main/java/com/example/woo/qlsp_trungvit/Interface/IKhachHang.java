@@ -7,5 +7,6 @@ package com.example.woo.qlsp_trungvit.Interface;
 public interface IKhachHang {
     void DelKhachHang(final int pos);
     void CallKhachHang(final int pos);
-    void ClickItemRecyclerview(final int pos);
+    void ClickItemKhachHang(final int pos);
+    void EditKhachHang(final int pos);
 }

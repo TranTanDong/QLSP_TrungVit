@@ -22,13 +22,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Số lượng:"
-                android:textSize="24dp"/>
+                android:textSize="24dp"
+                android:textColor="@android:color/holo_orange_dark"/>
 
             <EditText
                 android:id="@+id/et_soLuong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="6"
+                android:ems="10"
+                android:maxLength="10"
                 android:gravity="right"
                 android:inputType="number"
                 android:textColor="@android:color/holo_blue_light"
@@ -54,13 +56,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đơn giá:"
-                android:textSize="24dp"/>
+                android:textSize="24dp"
+                android:textColor="@android:color/holo_orange_dark"/>
 
             <EditText
                 android:id="@+id/et_donGia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="4"
+                android:maxLength="4"
                 android:gravity="right"
                 android:inputType="number"
                 android:textColor="@android:color/holo_blue_light"
@@ -87,7 +91,8 @@
                 android:layout_height="50dp"
                 android:text="Loại:"
                 android:textSize="24dp"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:textColor="@android:color/holo_orange_dark"/>
 
             <Spinner
                 android:id="@+id/spn_loai"
@@ -118,7 +123,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Thời gian:"
-                android:textSize="24dp"/>
+                android:textSize="24dp"
+                android:textColor="@android:color/holo_orange_dark"/>
 
             <TextView
                 android:id="@+id/tv_thoiGian"
@@ -150,7 +156,8 @@
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:text="Khách hàng:"
-                android:textSize="24dp"/>
+                android:textSize="24dp"
+                android:textColor="@android:color/holo_orange_dark"/>
 
             <Spinner
                 android:id="@+id/spn_khachHang"
@@ -180,7 +187,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TÍNH TIỀN"
-            android:textSize="24dp" />
+            android:textSize="24dp"
+            android:textColor="@android:color/holo_orange_dark"/>
 
         <TextView
             android:id="@+id/tv_tinhTien"
@@ -214,8 +222,9 @@
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
             android:textSize="24dp"
-            android:text="HỦY BỎ"
-            android:layout_marginRight="10dp"/>
+            android:text="HỦY"
+            android:layout_marginRight="10dp"
+            android:textColor="@android:color/holo_orange_dark"/>
 
         <Button
             android:id="@+id/btn_luuGiaoDich"
@@ -226,7 +235,8 @@
             android:layout_weight="1"
             android:text="LƯU"
             android:textSize="24dp"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:textColor="@android:color/holo_orange_dark"/>
 
     </LinearLayout>
 
