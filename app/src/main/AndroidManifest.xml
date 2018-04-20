@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,23 +22,38 @@
         <activity
             android:name=".MuaVao"
             android:label="@string/app_mua"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".BanRa"
+            android:label="Danh Sách Bán Ra"
             android:parentActivityName=".MainActivity"/>
-        <activity android:name=".BanRa" />
+
         <activity
             android:name=".KhachHang"
             android:label="@string/app_khachhang"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".ThongKe"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".ThongKe"
+            android:parentActivityName=".MainActivity" />
+
         <activity
             android:name=".AddKhachHang"
             android:label="@string/app_addkhachhang"
-            android:parentActivityName=".KhachHang"/>
-        <activity android:name=".AddGiaoDich"
-            android:label="@string/app_addgiaodich"
-            android:parentActivityName=".MuaVao">
+            android:parentActivityName=".KhachHang" />
 
-        </activity>
+        <activity
+            android:name=".AddGiaoDich"
+            android:label="@string/app_addgiaodich"
+            android:parentActivityName=".MuaVao"></activity>
+
+        <activity
+            android:name=".Details"
+            android:label="Chi tiết sản phẩm"
+            android:parentActivityName=".MuaVao"></activity>
+
+
     </application>
 
 </manifest>

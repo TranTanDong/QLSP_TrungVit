@@ -21,6 +21,8 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
 
     public static final int CODE_REQUEST_ADDSP = 3;
     public static final int CODE_RESULT_ADDSP = 4;
+    public static final int CODE_REQUEST_DETAIL = 5;
+    public static final int CODE_RESULT_DETAIL = 6;
 
     private RecyclerView rcv_muaVao;
     ArrayList<ListSanPham> listSanPhams = new ArrayList<>();
@@ -56,7 +58,7 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
         //Xử lý RecyclerView rcv_muaVao
         rcv_muaVao = findViewById(R.id.rcv_muaVao);
         rcv_muaVao.setLayoutManager(new LinearLayoutManager(this));
-        sanPhamAdapter = new SanPhamAdapter(this, listSanPhams, this);
+        sanPhamAdapter = new SanPhamAdapter(MuaVao.this, listSanPhams, this);
         rcv_muaVao.setAdapter(sanPhamAdapter);
     }
 
@@ -98,6 +100,16 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
 
     @Override
     public void ClickItemSanPham(int pos) {
-        Toast.makeText(MuaVao.this, "Cái này của "+listSanPhams.get(pos).getTenKhachHang().toString(), Toast.LENGTH_SHORT).show();
+        Intent sIntent = new Intent(MuaVao.this, Details.class);
+        sIntent.putExtra("SLD", listSanPhams.get(pos).getSoLuong());
+        sIntent.putExtra("DGD", listSanPhams.get(pos).getDonGia());
+        sIntent.putExtra("LD", listSanPhams.get(pos).getLoai());
+        sIntent.putExtra("TGD", listSanPhams.get(pos).getThoiGian());
+        sIntent.putExtra("MD", listSanPhams.get(pos).getMaGiaoDich());
+        sIntent.putExtra("KHD", listSanPhams.get(pos).getTenKhachHang());
+        sIntent.putExtra("PD", pos);
+        startActivityForResult(sIntent, CODE_REQUEST_DETAIL);
+
+        //Toast.makeText(MuaVao.this, "Cái này của "+listSanPhams.get(pos).getTenKhachHang().toString(), Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.woo.qlsp_trungvit.Adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.woo.qlsp_trungvit.BanRa;
 import com.example.woo.qlsp_trungvit.Interface.ISanPham;
 import com.example.woo.qlsp_trungvit.Model.ListSanPham;
 import com.example.woo.qlsp_trungvit.MuaVao;
@@ -20,11 +22,11 @@ import java.util.ArrayList;
 
 public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder>{
 
-    MuaVao context;
+    Context context;
     ArrayList<ListSanPham> sanPhams;
     ISanPham iSanPham;
 
-    public SanPhamAdapter(MuaVao context, ArrayList<ListSanPham> sanPhams, ISanPham iSanPham) {
+    public SanPhamAdapter(Context context, ArrayList<ListSanPham> sanPhams, ISanPham iSanPham) {
         this.context = context;
         this.sanPhams = sanPhams;
         this.iSanPham = iSanPham;
