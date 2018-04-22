@@ -92,6 +92,8 @@ public class AddGiaoDich extends AppCompatActivity {
         adapterKhachHang.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spn_khachHang.setAdapter(adapterKhachHang);
 
+
+
         mIntent = getIntent();
         codeType = mIntent.getIntExtra("CodeMua", -1);
         if (codeType == MuaVao.CODE_REQUEST_ADDSP){
@@ -169,7 +171,10 @@ public class AddGiaoDich extends AppCompatActivity {
         mIntent.putExtra("L", spn_loai.getSelectedItem().toString());
         mIntent.putExtra("TG", tv_thoiGian.getText().toString());
         mIntent.putExtra("KH", spn_khachHang.getSelectedItem().toString());
-        setResult(MuaVao.CODE_RESULT_ADDSP, mIntent);
+        if (codeType==MuaVao.CODE_REQUEST_ADDSP){
+            setResult(MuaVao.CODE_RESULT_ADDSP, mIntent);
+        }else setResult(BanRa.CODE_RESULT_ADDSPB, mIntent);
+
         finish();
     }
 

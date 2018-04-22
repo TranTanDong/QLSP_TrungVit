@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.woo.qlsp_trungvit.Adapter.SanPhamAdapter;
 import com.example.woo.qlsp_trungvit.Interface.ISanPham;
@@ -18,6 +19,9 @@ import java.util.ArrayList;
 public class BanRa extends AppCompatActivity implements ISanPham {
 
     public static final int CODE_REQUEST_ADDSPB = 7;
+    public static final int CODE_RESULT_ADDSPB = 8;
+    public static final int CODE_REQUEST_DETAILBR = 9;
+    public static final int CODE_RESULT_DETAILBR = 10;
 
     private RecyclerView rcv_banRa;
     ArrayList<ListSanPham> sPBanRas = new ArrayList<>();
@@ -78,10 +82,32 @@ public class BanRa extends AppCompatActivity implements ISanPham {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == CODE_REQUEST_ADDSPB && resultCode == CODE_RESULT_ADDSPB){
+            Intent rIntent = getIntent();
+            int SL = Integer.parseInt(data.getStringExtra("SL"));
+            int DG = Integer.parseInt(data.getStringExtra("DG"));
+            String L = data.getStringExtra("L");
+            String TG = data.getStringExtra("TG");
+            String KH = data.getStringExtra("KH");
+
+           sPBanRas.add(new ListSanPham(sPBanRas.size()+1, SL, DG, L, TG, KH));
+            sPBanRaAdapter.notifyDataSetChanged();
+            Toast.makeText(BanRa.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
     public void ClickItemSanPham(int pos) {
-
+        Intent sIntent = new Intent(BanRa.this, Details.class);
+        sIntent.putExtra("SLD", sPBanRas.get(pos).getSoLuong());
+        sIntent.putExtra("DGD", sPBanRas.get(pos).getDonGia());
+        sIntent.putExtra("LD", sPBanRas.get(pos).getLoai());
+        sIntent.putExtra("TGD", sPBanRas.get(pos).getThoiGian());
+        sIntent.putExtra("MD", sPBanRas.get(pos).getMaGiaoDich());
+        sIntent.putExtra("KHD", sPBanRas.get(pos).getTenKhachHang());
+        sIntent.putExtra("PD", pos);
+        sIntent.putExtra("CodeDetail", CODE_REQUEST_DETAILBR);
+        startActivityForResult(sIntent, CODE_REQUEST_DETAILBR);
     }
 }

@@ -49,6 +49,7 @@ public class Details extends AppCompatActivity {
         String KH = dIntent.getStringExtra("KHD");
         int M = dIntent.getIntExtra("MD", -1);
         int P = dIntent.getIntExtra("PD", -1);
+        int C = dIntent.getIntExtra("CodeDetail", -1);
 
         //Set giá trị
         tv_soLuong_detail.setText(String.valueOf(SL));
@@ -57,6 +58,11 @@ public class Details extends AppCompatActivity {
         tv_thoiGian_detail.setText(TG);
         tv_khachHang_detail.setText(KH);
         tv_tinhTien_detail.setText(String.valueOf(SL*DG));
+
+        if (C==BanRa.CODE_REQUEST_DETAILBR){
+            title_detail.setText("Trứng Bán Ra");
+            img_detail.setImageResource(R.drawable.ic_banra);
+        }
 
 
        // Log.i("Detail", SL+" "+DG+" "+L+" "+TG+" "+KH+" "+M);
