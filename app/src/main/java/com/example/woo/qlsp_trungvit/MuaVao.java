@@ -28,6 +28,8 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
     ArrayList<ListSanPham> listSanPhams = new ArrayList<>();
     SanPhamAdapter sanPhamAdapter;
 
+    Database database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,8 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
     }
 
     private void addControls() {
+//        database = new Database(MuaVao.this);
+//        database.QueryData("");
 
         //Thêm dữ liệu vào listSanPham để test
         listSanPhams.clear();

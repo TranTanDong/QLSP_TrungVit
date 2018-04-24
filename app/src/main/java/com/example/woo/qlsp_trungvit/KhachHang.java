@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -21,10 +22,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.Manifest;
 
 import com.example.woo.qlsp_trungvit.Adapter.KhachHangAdapter;
 import com.example.woo.qlsp_trungvit.Interface.IKhachHang;
@@ -43,6 +42,8 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
     KhachHangAdapter khachHangAdapter;
     private int vt;
 
+    Database database;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,23 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
         setContentView(R.layout.activity_khach_hang);
         addControls();
         addEvents();
+
+        showAllListKhachHang();
+    }
+
+    private void showAllListKhachHang() {
+        Cursor data = database.GetData("SELECT * FROM KhachHang");
+        khachHangs.clear();
+        while (data.moveToNext()){
+            int Ma = data.getInt(0);
+            String Ten = data.getString(1);
+            String SDT = data.getString(2);
+            String DiaChi = data.getString(3);
+
+            khachHangs.add(new ListKhachHang(Ma, Ten, SDT, DiaChi));
+        }
+        data.close();
+        khachHangAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -85,19 +103,26 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void addControls() {
+        database = new Database(KhachHang.this);
+        database.QueryData("CREATE TABLE IF NOT EXISTS KhachHang(KH_MA INTEGER PRIMARY KEY AUTOINCREMENT, KH_TEN VARCHAR(30) NOT NULL, KH_SDT VARCHAR(11), KH_DIACHI VARCHAR(50))");
+
+//        database.QueryData("INSERT INTO KhachHang VALUES(null, 'Mơ Văn Mộng', '0125458740', 'P1-ST')");
+//        database.QueryData("INSERT INTO KhachHang VALUES(null, 'Ngớ Thị Ngẩn', '0125654740', 'P2-CT')");
+//        database.QueryData("INSERT INTO KhachHang VALUES(null, 'Điên Nặng Điện', '0125348740', 'P3-VT')");
+
 
         //Thêm dữ liệu vào khachHangs để test
-        khachHangs.clear();
-        khachHangs.add(new ListKhachHang(1, "Mơ Văn Mộng", "0125458740", "P1-ST"));
-        khachHangs.add(new ListKhachHang(2, "Ngớ Thị Ngẩn", "0125875840", "P2-CM"));
-        khachHangs.add(new ListKhachHang(3, "Điên Nặng Điện", "0125452740", "P3-TN"));
-        khachHangs.add(new ListKhachHang(4, "Khung Quyền Khùng", "0141458740", "P4-HN"));
-        khachHangs.add(new ListKhachHang(5, "Ê Sắc Ế", "0125898740", "P5-QN"));
-        khachHangs.add(new ListKhachHang(6, "Láo Văn Cá", "012543740", "P6-VT"));
-        khachHangs.add(new ListKhachHang(7, "Bò Thị Lếch", "012587650", "P7-ĐN"));
-        khachHangs.add(new ListKhachHang(8, "Kiếm Văn Chuyện", "0129894740", "P8-KG"));
-        khachHangs.add(new ListKhachHang(9, "Đánh Văn Chạy", "0125890740", "P9-KH"));
-        khachHangs.add(new ListKhachHang(10, "Chạy Thị Chú", "0123458740", "Q1-HG"));
+//        khachHangs.clear();
+//        khachHangs.add(new ListKhachHang(1, "Mơ Văn Mộng", "0125458740", "P1-ST"));
+//        khachHangs.add(new ListKhachHang(2, "Ngớ Thị Ngẩn", "0125875840", "P2-CM"));
+//        khachHangs.add(new ListKhachHang(3, "Điên Nặng Điện", "0125452740", "P3-TN"));
+//        khachHangs.add(new ListKhachHang(4, "Khung Quyền Khùng", "0141458740", "P4-HN"));
+//        khachHangs.add(new ListKhachHang(5, "Ê Sắc Ế", "0125898740", "P5-QN"));
+//        khachHangs.add(new ListKhachHang(6, "Láo Văn Cá", "012543740", "P6-VT"));
+//        khachHangs.add(new ListKhachHang(7, "Bò Thị Lếch", "012587650", "P7-ĐN"));
+//        khachHangs.add(new ListKhachHang(8, "Kiếm Văn Chuyện", "0129894740", "P8-KG"));
+//        khachHangs.add(new ListKhachHang(9, "Đánh Văn Chạy", "0125890740", "P9-KH"));
+//        khachHangs.add(new ListKhachHang(10, "Chạy Thị Chú", "0123458740", "Q1-HG"));
 
         //Xử lý RecyclerView rcv_khachHang
         rcv_khachHang = (RecyclerView)findViewById(R.id.rcv_khachHang);
@@ -138,9 +163,12 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
             String sdtKH = data.getStringExtra("SDTKH");
             String diachiKH = data.getStringExtra("DiaChiKH");
 
-            khachHangs.add(new ListKhachHang(khachHangs.size()+1, tenKH, sdtKH, diachiKH));
-            khachHangAdapter.notifyDataSetChanged();
+            String sql = "INSERT INTO KhachHang VALUES(null, '"+tenKH+"', '"+sdtKH+"', '"+diachiKH+"')";
+            Log.i("INSERT", sql);
+            database.QueryData(sql);
+            showAllListKhachHang();
             AddGiaoDich.arrayList.add(tenKH);
+            Toast.makeText(KhachHang.this, "Đã thêm thành công!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -155,9 +183,12 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                khachHangs.remove(pos);
-                khachHangAdapter.notifyDataSetChanged();
-//                Toast.makeText(this,"Đã Click Xóa", Toast.LENGTH_LONG).show();
+                int Ma = khachHangs.get(pos).getMaKH();
+                String sql = "DELETE FROM KhachHang WHERE KH_MA="+Ma+"";
+                Log.i("DELETE", sql);
+                database.QueryData(sql);
+                showAllListKhachHang();
+                Toast.makeText(KhachHang.this,"Đã xóa thành công!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -238,14 +269,20 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
                 String tenKH = khachHangs.get(pos).getTenKH().toString();
                 String sdtKH = khachHangs.get(pos).getSdtKH().toString();
                 String dcKH = khachHangs.get(pos).getDiachiKH().toString();
+
+                String ten = et_tenKH_edit.getText().toString();
+                String sdt = et_sdt_edit.getText().toString();
+                String dc = et_diachi_edit.getText().toString();
                 int maKH = khachHangs.get(pos).getMaKH();
-                if (tenKH.equals(et_tenKH_edit.getText().toString()) && sdtKH.equals(et_sdt_edit.getText().toString()) && dcKH.equals(et_diachi_edit.getText().toString())){
+                if (tenKH.equals(ten) && sdtKH.equals(sdt) && dcKH.equals(dc)){
                     dialogInterface.dismiss();
                 }else {
-                    khachHangs.remove(pos);
-                    khachHangs.add(new ListKhachHang(maKH, et_tenKH_edit.getText().toString(), et_sdt_edit.getText().toString(), et_diachi_edit.getText().toString()));
-                    khachHangAdapter.notifyDataSetChanged();
+                    String sql = "UPDATE KhachHang SET KH_TEN='"+ten+"', KH_SDT='"+sdt+"', KH_DIACHI='"+dc+"' WHERE KH_MA="+maKH+"";
+                    Log.i("UPDATE", sql);
+                    database.QueryData(sql);
+                    showAllListKhachHang();
                     dialogInterface.dismiss();
+                    Toast.makeText(KhachHang.this, "Đã sửa thành công!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
