@@ -167,7 +167,7 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
             Log.i("INSERT", sql);
             database.QueryData(sql);
             showAllListKhachHang();
-            AddGiaoDich.arrayList.add(tenKH);
+           // AddGiaoDich.arrayList.add(tenKH);
             Toast.makeText(KhachHang.this, "Đã thêm thành công!", Toast.LENGTH_SHORT).show();
         }
     }

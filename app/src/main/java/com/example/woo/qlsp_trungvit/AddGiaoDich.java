@@ -2,6 +2,7 @@ package com.example.woo.qlsp_trungvit;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -19,10 +20,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.woo.qlsp_trungvit.Model.ListKhachHang;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class AddGiaoDich extends AppCompatActivity {
@@ -37,13 +41,14 @@ public class AddGiaoDich extends AppCompatActivity {
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private DecimalFormat dcf = new DecimalFormat("#,###,###");
 
-    public static ArrayList<String> arrayList = new ArrayList<String>();
-    public static String[] arrLoai = {"Cồ", "Lạc", "So", "Giữa", "Dạc", "Ngang", "Thúi", "Dập", "Lộn"};
+    private ArrayList<String> arrayList = new ArrayList<String>();
+    private String[] arrLoai = {"Cồ", "Lạc", "So", "Lộn", "Giữa", "Ngang", "Dập", "Dạc", "Thúi", "Xác", "Lỡ"};
 
     private int lastesSelected = -1; //Vị trí click Spinner
     private int codeType;
 
-    Intent mIntent;
+    private Intent mIntent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class AddGiaoDich extends AppCompatActivity {
         addControls();
         addEvents();
     }
+
 
     private void addControls() {
         tv_tinhTien = findViewById(R.id.tv_tinhTien);
@@ -77,11 +83,7 @@ public class AddGiaoDich extends AppCompatActivity {
         spn_loai.setAdapter(adapterLoai);
 
         //Spinner khachHang
-        arrayList.clear();
-        for (int i = 0; i < KhachHang.khachHangs.size(); i++){
-            Log.i("ArrayList",KhachHang.khachHangs.get(i).getTenKH());
-            arrayList.add(KhachHang.khachHangs.get(i).getTenKH());
-        }
+        addItemSpinnerKH();
 
         spn_khachHang = findViewById(R.id.spn_khachHang);
         ArrayAdapter<String> adapterKhachHang = new ArrayAdapter<String>(
@@ -101,6 +103,15 @@ public class AddGiaoDich extends AppCompatActivity {
         }else img_loaiGiaoDich.setImageResource(R.drawable.ic_banra);
 
 
+    }
+
+    private void addItemSpinnerKH() {
+        arrayList.clear();
+        for (int i = 0; i < KhachHang.khachHangs.size(); i++){
+            Log.i("ArrayList",KhachHang.khachHangs.get(i).getTenKH());
+            arrayList.add(KhachHang.khachHangs.get(i).getTenKH());
+        }
+        Collections.sort(arrayList);
     }
 
     private void addEvents() {

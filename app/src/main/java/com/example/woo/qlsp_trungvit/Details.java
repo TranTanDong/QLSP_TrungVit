@@ -23,6 +23,10 @@ public class Details extends AppCompatActivity {
                         title_detail;
     private ImageView img_detail;
 
+    private int SL, DG, M, C;
+    private String L, TG, KH;
+    private Intent dIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,15 +45,15 @@ public class Details extends AppCompatActivity {
         title_detail = findViewById(R.id.title_detail);
         img_detail = findViewById(R.id.img_detail);
 
-        Intent dIntent = getIntent();
-        int SL = dIntent.getIntExtra("SLD", -1);
-        int DG = dIntent.getIntExtra("DGD", -1);
-        String L = dIntent.getStringExtra("LD");
-        String TG = dIntent.getStringExtra("TGD");
-        String KH = dIntent.getStringExtra("KHD");
-        int M = dIntent.getIntExtra("MD", -1);
-        int P = dIntent.getIntExtra("PD", -1);
-        int C = dIntent.getIntExtra("CodeDetail", -1);
+        dIntent = getIntent();
+        SL = dIntent.getIntExtra("SLD", -1);
+        DG = dIntent.getIntExtra("DGD", -1);
+        L = dIntent.getStringExtra("LD");
+        TG = dIntent.getStringExtra("TGD");
+        KH = dIntent.getStringExtra("KHD");
+        M = dIntent.getIntExtra("MD", -1);
+        //P = dIntent.getIntExtra("PD", -1);
+        C = dIntent.getIntExtra("CodeDetail", -1);
 
         //Set giá trị
         tv_soLuong_detail.setText(String.valueOf(SL));
@@ -93,7 +97,14 @@ public class Details extends AppCompatActivity {
             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    dIntent.putExtra("MaDelete", M);
+                    Log.i("DL", String.valueOf(M));
+                    if (C==BanRa.CODE_REQUEST_DETAILBR){
+                        setResult(BanRa.CODE_RESULT_DETAILBR, dIntent);
+                    }else setResult(MuaVao.CODE_RESULT_DETAIL, dIntent);
+
                     dialogInterface.dismiss();
+                    Details.this.finish();
                 }
             });
 
