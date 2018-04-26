@@ -27,6 +27,9 @@ public class Details extends AppCompatActivity {
     private String L, TG, KH;
     private Intent dIntent;
 
+    public static final int REQUEST_EDIT = 13;
+    public static final int RESULT_EDIT = 14;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +48,7 @@ public class Details extends AppCompatActivity {
         title_detail = findViewById(R.id.title_detail);
         img_detail = findViewById(R.id.img_detail);
 
+        //Xử lý thông tin từ MuaVao | BanRa gửi qua
         dIntent = getIntent();
         SL = dIntent.getIntExtra("SLD", -1);
         DG = dIntent.getIntExtra("DGD", -1);
@@ -86,7 +90,16 @@ public class Details extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==R.id.edit_detail){
-
+            Intent sIntent = new Intent(Details.this, EditGiaoDich.class);
+            sIntent.putExtra("SL", SL);
+            sIntent.putExtra("DG", DG);
+            sIntent.putExtra("TG", TG);
+            sIntent.putExtra("L", L);
+            sIntent.putExtra("KH", KH);
+            sIntent.putExtra("M", M);
+            sIntent.putExtra("C", C);
+            sIntent.putExtra("CD", REQUEST_EDIT);
+            startActivityForResult(sIntent, REQUEST_EDIT);
         }
 
         if (item.getItemId()==R.id.del_detail){

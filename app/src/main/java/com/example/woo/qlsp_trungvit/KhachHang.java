@@ -56,7 +56,7 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
     }
 
     private void showAllListKhachHang() {
-        Cursor data = database.GetData("SELECT * FROM KhachHang");
+        Cursor data = database.GetData("SELECT * FROM KhachHang ORDER BY KH_TEN, KH_DIACHI");
         khachHangs.clear();
         while (data.moveToNext()){
             int Ma = data.getInt(0);

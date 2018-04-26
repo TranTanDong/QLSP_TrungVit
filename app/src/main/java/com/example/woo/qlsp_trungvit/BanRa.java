@@ -1,10 +1,12 @@
 package com.example.woo.qlsp_trungvit;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,27 +29,61 @@ public class BanRa extends AppCompatActivity implements ISanPham {
     ArrayList<ListSanPham> sPBanRas = new ArrayList<>();
     SanPhamAdapter sPBanRaAdapter;
 
+    Database database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ban_ra);
         addControls();
         addEvents();
+
+        showAllListBanRa();
+    }
+
+    private void showAllListBanRa() {
+        Cursor data = database.GetData("SELECT * FROM BanRa ORDER BY BR_THOIGIAN DESC, BR_DONGIA DESC");
+        sPBanRas.clear();
+        while (data.moveToNext()){
+            int Ma = data.getInt(0);
+            int SL = data.getInt(1);
+            int DG = data.getInt(2);
+            String L = data.getString(3);
+            String TG = data.getString(4);
+            int MaKH = data.getInt(5);
+            Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
+            datatenKH.moveToFirst();
+            String tenKH = datatenKH.getString(1);
+            sPBanRas.add(new ListSanPham(Ma, SL, DG, L, TG, tenKH));
+        }
+        data.close();
+        sPBanRaAdapter.notifyDataSetChanged();
     }
 
     private void addControls() {
+        database = new Database(BanRa.this);
+        String sql = "CREATE TABLE IF NOT EXISTS BanRa( " +
+                "BR_MA INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "BR_SOLG INTEGER NOT NULL, " +
+                "BR_DONGIA INTEGER NOT NULL, " +
+                "BR_LOAI VARCHAR(10) NOT NULL, " +
+                "BR_THOIGIAN SMALLDATETIME NOT NULL, " +
+                "BR_MAKH INTEGER NOT NULL, " +
+                "CONSTRAINT FK_BAN_KHACHHANG FOREIGN KEY (BR_MAKH) REFERENCES KhachHang (KH_MA) ON UPDATE CASCADE)";
+        database.QueryData(sql);
+
         //Thêm dữ liệu vào listSanPham để test
-        sPBanRas.clear();
-        sPBanRas.add(new ListSanPham(1, 1000, 1500, "Cồ", "22/12/2018", "NVA"));
-        sPBanRas.add(new ListSanPham(2, 1100, 1600, "So", "23/12/2018", "NVB"));
-        sPBanRas.add(new ListSanPham(3, 1200, 1700, "Cồ", "21/12/2018", "NVD"));
-        sPBanRas.add(new ListSanPham(4, 1300, 1800, "Lạc", "24/12/2018", "NVE"));
-        sPBanRas.add(new ListSanPham(5, 1400, 1900, "Cồ", "25/12/2018", "NVT"));
-        sPBanRas.add(new ListSanPham(6, 1500, 1200, "Dạc", "26/12/2018", "NVS"));
-        sPBanRas.add(new ListSanPham(7, 1600, 1300, "Ngang", "27/12/2018", "NVX"));
-        sPBanRas.add(new ListSanPham(8, 1700, 1400, "Cồ", "28/12/2018", "NVZ"));
-        sPBanRas.add(new ListSanPham(9, 1800, 1100, "Giữa", "29/12/2018", "NVV"));
-        sPBanRas.add(new ListSanPham(10, 1900, 1950, "Cồ", "20/12/2018", "NVN"));
+//        sPBanRas.clear();
+//        sPBanRas.add(new ListSanPham(1, 1000, 1500, "Cồ", "22/12/2018", "NVA"));
+//        sPBanRas.add(new ListSanPham(2, 1100, 1600, "So", "23/12/2018", "NVB"));
+//        sPBanRas.add(new ListSanPham(3, 1200, 1700, "Cồ", "21/12/2018", "NVD"));
+//        sPBanRas.add(new ListSanPham(4, 1300, 1800, "Lạc", "24/12/2018", "NVE"));
+//        sPBanRas.add(new ListSanPham(5, 1400, 1900, "Cồ", "25/12/2018", "NVT"));
+//        sPBanRas.add(new ListSanPham(6, 1500, 1200, "Dạc", "26/12/2018", "NVS"));
+//        sPBanRas.add(new ListSanPham(7, 1600, 1300, "Ngang", "27/12/2018", "NVX"));
+//        sPBanRas.add(new ListSanPham(8, 1700, 1400, "Cồ", "28/12/2018", "NVZ"));
+//        sPBanRas.add(new ListSanPham(9, 1800, 1100, "Giữa", "29/12/2018", "NVV"));
+//        sPBanRas.add(new ListSanPham(10, 1900, 1950, "Cồ", "20/12/2018", "NVN"));
 
 
         //Xử lý RecyclerView rcv_muaVao
@@ -83,16 +119,30 @@ public class BanRa extends AppCompatActivity implements ISanPham {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == CODE_REQUEST_ADDSPB && resultCode == CODE_RESULT_ADDSPB){
-            Intent rIntent = getIntent();
             int SL = Integer.parseInt(data.getStringExtra("SL"));
             int DG = Integer.parseInt(data.getStringExtra("DG"));
             String L = data.getStringExtra("L");
             String TG = data.getStringExtra("TG");
             String KH = data.getStringExtra("KH");
 
-           sPBanRas.add(new ListSanPham(sPBanRas.size()+1, SL, DG, L, TG, KH));
-            sPBanRaAdapter.notifyDataSetChanged();
+            Cursor dataMaKH = database.GetData("SELECT * FROM KhachHang WHERE KH_TEN='"+KH+"'");
+            dataMaKH.moveToFirst();
+            int MaKH = dataMaKH.getInt(0);
+
+            String sql = "INSERT INTO BanRa VALUES(null, "+SL+", "+DG+", '"+L+"', '"+TG+"', "+MaKH+")";
+//            Log.i("INSERT1", sql);
+            database.QueryData(sql);
+            showAllListBanRa();
             Toast.makeText(BanRa.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
+        }
+
+        if (requestCode==CODE_REQUEST_DETAILBR && resultCode==CODE_RESULT_DETAILBR){
+            int MaGD = data.getIntExtra("MaDelete", -1);
+            //Log.i("DL", String.valueOf(MaGD));
+            String sql = "DELETE FROM BanRa WHERE BR_MA="+MaGD+"";
+            database.QueryData(sql);
+            showAllListBanRa();
+            Toast.makeText(BanRa.this,"Đã xóa thành công!", Toast.LENGTH_LONG).show();
         }
 
     }

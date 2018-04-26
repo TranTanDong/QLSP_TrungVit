@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.woo.qlsp_trungvit.AddGiaoDich">
+    tools:context=".EditGiaoDich">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
                 android:textColor="@android:color/holo_orange_dark"/>
 
             <EditText
-                android:id="@+id/et_soLuong"
+                android:id="@+id/et_soLuong_E"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="6"
@@ -60,7 +60,7 @@
                 android:textColor="@android:color/holo_orange_dark"/>
 
             <EditText
-                android:id="@+id/et_donGia"
+                android:id="@+id/et_donGia_E"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="4"
@@ -95,7 +95,7 @@
                 android:textColor="@android:color/holo_orange_dark"/>
 
             <Spinner
-                android:id="@+id/spn_loai"
+                android:id="@+id/spn_loai_E"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -127,7 +127,7 @@
                 android:textColor="@android:color/holo_orange_dark"/>
 
             <TextView
-                android:id="@+id/tv_thoiGian"
+                android:id="@+id/tv_thoiGian_E"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -160,7 +160,7 @@
                 android:textColor="@android:color/holo_orange_dark"/>
 
             <Spinner
-                android:id="@+id/spn_khachHang"
+                android:id="@+id/spn_khachHang_E"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -183,7 +183,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_tinhTien"
+            android:id="@+id/btn_tinhTien_E"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TÍNH TIỀN"
@@ -191,7 +191,7 @@
             android:textColor="@android:color/holo_orange_dark"/>
 
         <TextView
-            android:id="@+id/tv_tinhTien"
+            android:id="@+id/tv_tinhTien_E"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
@@ -209,14 +209,14 @@
         android:weightSum="3">
 
         <ImageView
-            android:id="@+id/img_loaiGiaoDich"
+            android:id="@+id/img_loaiGiaoDich_E"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_weight="1"
             android:src="@drawable/ic_themkhachhang"/>
 
         <Button
-            android:id="@+id/btn_huyGiaoDich"
+            android:id="@+id/btn_huyGiaoDich_E"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -227,19 +227,17 @@
             android:textColor="@android:color/holo_orange_dark"/>
 
         <Button
-            android:id="@+id/btn_luuGiaoDich"
+            android:id="@+id/btn_luuGiaoDich_E"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="LƯU"
+            android:text="SỬA"
             android:textSize="24dp"
             android:visibility="invisible"
             android:textColor="@android:color/holo_orange_dark"/>
 
     </LinearLayout>
-
-
 
 </LinearLayout>

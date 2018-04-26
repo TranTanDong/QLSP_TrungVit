@@ -14,6 +14,7 @@ import com.example.woo.qlsp_trungvit.Model.ListSanPham;
 import com.example.woo.qlsp_trungvit.MuaVao;
 import com.example.woo.qlsp_trungvit.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -22,9 +23,11 @@ import java.util.ArrayList;
 
 public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder>{
 
-    Context context;
-    ArrayList<ListSanPham> sanPhams;
-    ISanPham iSanPham;
+    private Context context;
+    private ArrayList<ListSanPham> sanPhams;
+    private ISanPham iSanPham;
+
+    private DecimalFormat dcf = new DecimalFormat("#,###,###,###");
 
     public SanPhamAdapter(Context context, ArrayList<ListSanPham> sanPhams, ISanPham iSanPham) {
         this.context = context;
@@ -40,13 +43,13 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 
     @Override
     public void onBindViewHolder(SanPhamViewHolder holder, final int position) {
-        holder.tv_soLuongSP.setText(String.valueOf(sanPhams.get(position).getSoLuong()));
-        holder.tv_donGiaSP.setText(String.valueOf(sanPhams.get(position).getDonGia()));
+        holder.tv_soLuongSP.setText(String.valueOf(dcf.format(sanPhams.get(position).getSoLuong())));
+        holder.tv_donGiaSP.setText(String.valueOf(dcf.format(sanPhams.get(position).getDonGia())));
         holder.tv_thoiGianSP.setText(sanPhams.get(position).getThoiGian());
         holder.tv_loaiSP.setText(sanPhams.get(position).getLoai());
         int sl = sanPhams.get(position).getSoLuong();
         int dg = sanPhams.get(position).getDonGia();
-        holder.tv_tinhTienSP.setText(String.valueOf(sl*dg));
+        holder.tv_tinhTienSP.setText(String.valueOf(dcf.format(sl*dg))+"đ");
 
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

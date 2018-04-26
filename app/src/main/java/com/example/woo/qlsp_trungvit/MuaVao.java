@@ -44,7 +44,7 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
     }
 
     private void showAllListMuaVao() {
-        Cursor data = database.GetData("SELECT * FROM MuaVao");
+        Cursor data = database.GetData("SELECT * FROM MuaVao ORDER BY MV_THOIGIAN DESC");
         listSanPhams.clear();
         while (data.moveToNext()){
             int Ma = data.getInt(0);

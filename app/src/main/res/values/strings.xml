@@ -4,4 +4,5 @@
     <string name="app_khachhang">Danh Sách Khách Hàng</string>
     <string name="app_addkhachhang">Thêm khách hàng</string>
     <string name="app_addgiaodich">Thêm giao dịch</string>
+    <string name="app_thongke">Thống Kê</string>
 </resources>

@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.woo.qlsp_trungvit.Model.ListKhachHang;
+import com.example.woo.qlsp_trungvit.Model.ListSanPham;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -39,7 +41,7 @@ public class AddGiaoDich extends AppCompatActivity {
 
     private Calendar calendar = Calendar.getInstance();
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    private DecimalFormat dcf = new DecimalFormat("#,###,###");
+    private DecimalFormat dcf = new DecimalFormat("#,###,###,###");
 
     private ArrayList<String> arrayList = new ArrayList<String>();
     private String[] arrLoai = {"Cồ", "Lạc", "So", "Lộn", "Giữa", "Ngang", "Dập", "Dạc", "Thúi", "Xác", "Lỡ"};
@@ -48,6 +50,8 @@ public class AddGiaoDich extends AppCompatActivity {
     private int codeType;
 
     private Intent mIntent;
+
+    Database database;
 
 
     @Override
@@ -106,11 +110,20 @@ public class AddGiaoDich extends AppCompatActivity {
     }
 
     private void addItemSpinnerKH() {
+//        arrayList.clear();
+//        for (int i = 0; i < KhachHang.khachHangs.size(); i++){
+//            Log.i("ArrayList",KhachHang.khachHangs.get(i).getTenKH());
+//            arrayList.add(KhachHang.khachHangs.get(i).getTenKH());
+//        }
+        database = new Database(AddGiaoDich.this);
+        Cursor data = database.GetData("SELECT * FROM KhachHang");
         arrayList.clear();
-        for (int i = 0; i < KhachHang.khachHangs.size(); i++){
-            Log.i("ArrayList",KhachHang.khachHangs.get(i).getTenKH());
-            arrayList.add(KhachHang.khachHangs.get(i).getTenKH());
+        while (data.moveToNext()){
+            String TenKH = data.getString(1);
+            arrayList.add(TenKH);
         }
+        data.close();
+
         Collections.sort(arrayList);
     }
 
@@ -195,7 +208,8 @@ public class AddGiaoDich extends AppCompatActivity {
         }else if (TextUtils.isEmpty(et_donGia.getText())){
             Toast.makeText(this, "Hãy nhập Đơn giá!!!", Toast.LENGTH_LONG).show();
         }else {
-            int s = 0, donGia, soLuong;
+            long s = 0;
+            int donGia, soLuong;
             donGia = Integer.parseInt(et_donGia.getText().toString());
             soLuong = Integer.parseInt(et_soLuong.getText().toString());
             s = soLuong*donGia;
