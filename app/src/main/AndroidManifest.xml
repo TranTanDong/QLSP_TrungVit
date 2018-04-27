@@ -47,12 +47,10 @@
             android:parentActivityName=".MuaVao" />
         <activity
             android:name=".Details"
-            android:label="Chi tiết sản phẩm"
-            android:parentActivityName=".MuaVao" />
+            android:label="Chi tiết sản phẩm" />
         <activity
             android:name=".EditGiaoDich"
-            android:label="Sửa giao dịch"
-            android:parentActivityName=".Details">
+            android:label="Sửa giao dịch">
 
         </activity>
     </application>

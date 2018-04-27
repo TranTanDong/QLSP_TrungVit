@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Adapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.woo.qlsp_trungvit.Adapter.SanPhamAdapter;
@@ -18,20 +19,26 @@ import com.example.woo.qlsp_trungvit.Interface.ISanPham;
 import com.example.woo.qlsp_trungvit.Model.ListKhachHang;
 import com.example.woo.qlsp_trungvit.Model.ListSanPham;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MuaVao extends AppCompatActivity implements ISanPham {
 
-    public static final int CODE_REQUEST_ADDSP = 3;
-    public static final int CODE_RESULT_ADDSP = 4;
-    public static final int CODE_REQUEST_DETAIL = 5;
-    public static final int CODE_RESULT_DETAIL = 6;
+    public static final int CODE_REQUEST_ADDSP = 11;
+    public static final int CODE_RESULT_ADDSP = 12;
+    public static final int CODE_REQUEST_DETAIL = 13;
+    public static final int CODE_RESULT_DETAIL = 14;
+    public static final int CODE_RESULT_DETAILE = 15;
+
+    private TextView tv_tongSoLuong, tv_giaTrungBinh, tv_tongTien;
 
     private RecyclerView rcv_muaVao;
     ArrayList<ListSanPham> listSanPhams = new ArrayList<>();
     SanPhamAdapter sanPhamAdapter;
 
     Database database;
+
+    private DecimalFormat dcf = new DecimalFormat("#,###,###,###");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,10 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
     private void showAllListMuaVao() {
         Cursor data = database.GetData("SELECT * FROM MuaVao ORDER BY MV_THOIGIAN DESC");
         listSanPhams.clear();
+        int sumSL = 0;
+        int sumDG = 0;
+        int sumTien = 0;
+        int avgDG;
         while (data.moveToNext()){
             int Ma = data.getInt(0);
             int SL = data.getInt(1);
@@ -53,6 +64,11 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
             String L = data.getString(3);
             String TG = data.getString(4);
             int MaKH = data.getInt(5);
+
+            sumTien += SL*DG;
+            sumSL += SL;
+            sumDG += DG;
+
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             datatenKH.moveToFirst();
             String tenKH = datatenKH.getString(1);
@@ -60,6 +76,12 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
         }
         data.close();
         sanPhamAdapter.notifyDataSetChanged();
+
+
+        tv_tongSoLuong.setText(dcf.format(sumSL)+"");
+        avgDG = sumDG/listSanPhams.size();
+        tv_giaTrungBinh.setText(dcf.format(avgDG)+"");
+        tv_tongTien.setText(dcf.format(sumTien)+"đ");
     }
 
     private void addEvents() {
@@ -94,6 +116,10 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
 //        listSanPhams.add(new ListSanPham(8, 1700, 1400, "Cồ", "28/12/2018", "NVZ"));
 //        listSanPhams.add(new ListSanPham(9, 1800, 1100, "Giữa", "29/12/2018", "NVV"));
 //        listSanPhams.add(new ListSanPham(10, 1900, 1950, "Cồ", "20/12/2018", "NVN"));
+
+        tv_tongSoLuong = findViewById(R.id.tv_tongSoLuong);
+        tv_giaTrungBinh = findViewById(R.id.tv_giaTrungBinh);
+        tv_tongTien = findViewById(R.id.tv_tongTien);
 
         //Xử lý RecyclerView rcv_muaVao
         rcv_muaVao = findViewById(R.id.rcv_muaVao);
@@ -150,6 +176,26 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
             Toast.makeText(MuaVao.this,"Đã xóa thành công!", Toast.LENGTH_LONG).show();
         }
 
+        if (requestCode == CODE_REQUEST_DETAIL && resultCode == CODE_RESULT_DETAILE){
+            int SL = Integer.parseInt(data.getStringExtra("MBSL"));
+            int DG = Integer.parseInt(data.getStringExtra("MBDG"));
+            String L = data.getStringExtra("MBL");
+            String KH = data.getStringExtra("MBKH");
+            String TG = data.getStringExtra("MBTG");
+            int M = data.getIntExtra("MBM", -1);
+
+            Cursor dataMaKH = database.GetData("SELECT * FROM KhachHang WHERE KH_TEN='"+KH+"'");
+            dataMaKH.moveToFirst();
+            int MaKH = dataMaKH.getInt(0);
+
+            String sql = "UPDATE MuaVao SET MV_SOLG="+SL+", MV_DONGIA="+DG+", MV_LOAI='"+L+"', MV_THOIGIAN='"+TG+"', MV_MAKH="+MaKH+" WHERE MV_MA="+M;
+            database.QueryData(sql);
+            showAllListMuaVao();
+            Toast.makeText(MuaVao.this, "Sửa thành công!", Toast.LENGTH_SHORT).show();
+            Log.i("InfMV", SL+L+DG+KH+TG+M+"\n"+sql);
+
+        }
+
     }
 
     @Override
@@ -161,6 +207,7 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
         sIntent.putExtra("TGD", listSanPhams.get(pos).getThoiGian());
         sIntent.putExtra("MD", listSanPhams.get(pos).getMaGiaoDich());
         sIntent.putExtra("KHD", listSanPhams.get(pos).getTenKhachHang());
+        sIntent.putExtra("CodeDetail", CODE_REQUEST_DETAIL);
        // sIntent.putExtra("PD", pos);
         startActivityForResult(sIntent, CODE_REQUEST_DETAIL);
 

@@ -16,6 +16,8 @@ public class AddKhachHang extends AppCompatActivity {
 
     EditText et_tenkhachhang, et_sdt, et_diachi;
     Button btn_huy, btn_them;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

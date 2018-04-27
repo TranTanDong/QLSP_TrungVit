@@ -10,26 +10,32 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.woo.qlsp_trungvit.Adapter.SanPhamAdapter;
 import com.example.woo.qlsp_trungvit.Interface.ISanPham;
 import com.example.woo.qlsp_trungvit.Model.ListSanPham;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class BanRa extends AppCompatActivity implements ISanPham {
 
-    public static final int CODE_REQUEST_ADDSPB = 7;
-    public static final int CODE_RESULT_ADDSPB = 8;
-    public static final int CODE_REQUEST_DETAILBR = 9;
-    public static final int CODE_RESULT_DETAILBR = 10;
+    public static final int CODE_REQUEST_ADDSPB = 1;
+    public static final int CODE_RESULT_ADDSPB = 2;
+    public static final int CODE_REQUEST_DETAILBR = 3;
+    public static final int CODE_RESULT_DETAILBR = 4;
+    public static final int CODE_RESULT_DETAILBRE = 5;
 
     private RecyclerView rcv_banRa;
     ArrayList<ListSanPham> sPBanRas = new ArrayList<>();
     SanPhamAdapter sPBanRaAdapter;
 
     Database database;
+
+    private TextView tv_tongSoLuongB, tv_giaTrungBinhB, tv_tongTienB;
+    private DecimalFormat dcf = new DecimalFormat("#,###,###,###");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,10 @@ public class BanRa extends AppCompatActivity implements ISanPham {
     private void showAllListBanRa() {
         Cursor data = database.GetData("SELECT * FROM BanRa ORDER BY BR_THOIGIAN DESC, BR_DONGIA DESC");
         sPBanRas.clear();
+        int sumSL = 0;
+        int sumDG = 0;
+        int sumTien = 0;
+        int avgDG;
         while (data.moveToNext()){
             int Ma = data.getInt(0);
             int SL = data.getInt(1);
@@ -51,6 +61,11 @@ public class BanRa extends AppCompatActivity implements ISanPham {
             String L = data.getString(3);
             String TG = data.getString(4);
             int MaKH = data.getInt(5);
+
+            sumTien += SL*DG;
+            sumSL += SL;
+            sumDG += DG;
+
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             datatenKH.moveToFirst();
             String tenKH = datatenKH.getString(1);
@@ -58,6 +73,11 @@ public class BanRa extends AppCompatActivity implements ISanPham {
         }
         data.close();
         sPBanRaAdapter.notifyDataSetChanged();
+
+        tv_tongSoLuongB.setText(dcf.format(sumSL)+"");
+        avgDG = sumDG/sPBanRas.size();
+        tv_giaTrungBinhB.setText(dcf.format(avgDG)+"");
+        tv_tongTienB.setText(dcf.format(sumTien)+"đ");
     }
 
     private void addControls() {
@@ -84,6 +104,10 @@ public class BanRa extends AppCompatActivity implements ISanPham {
 //        sPBanRas.add(new ListSanPham(8, 1700, 1400, "Cồ", "28/12/2018", "NVZ"));
 //        sPBanRas.add(new ListSanPham(9, 1800, 1100, "Giữa", "29/12/2018", "NVV"));
 //        sPBanRas.add(new ListSanPham(10, 1900, 1950, "Cồ", "20/12/2018", "NVN"));
+
+        tv_tongSoLuongB = findViewById(R.id.tv_tongSoLuongB);
+        tv_giaTrungBinhB = findViewById(R.id.tv_giaTrungBinhB);
+        tv_tongTienB = findViewById(R.id.tv_tongTienB);
 
 
         //Xử lý RecyclerView rcv_muaVao
@@ -145,6 +169,25 @@ public class BanRa extends AppCompatActivity implements ISanPham {
             Toast.makeText(BanRa.this,"Đã xóa thành công!", Toast.LENGTH_LONG).show();
         }
 
+        if (requestCode == CODE_REQUEST_DETAILBR && resultCode == CODE_RESULT_DETAILBRE){
+            int SL = Integer.parseInt(data.getStringExtra("MBSL"));
+            int DG = Integer.parseInt(data.getStringExtra("MBDG"));
+            String L = data.getStringExtra("MBL");
+            String KH = data.getStringExtra("MBKH");
+            String TG = data.getStringExtra("MBTG");
+            int M = data.getIntExtra("MBM", -1);
+
+            Cursor dataMaKH = database.GetData("SELECT * FROM KhachHang WHERE KH_TEN='"+KH+"'");
+            dataMaKH.moveToFirst();
+            int MaKH = dataMaKH.getInt(0);
+
+            String sql = "UPDATE BanRa SET BR_SOLG="+SL+", BR_DONGIA="+DG+", BR_LOAI='"+L+"', BR_THOIGIAN='"+TG+"', BR_MAKH="+MaKH+" WHERE BR_MA="+M;
+            database.QueryData(sql);
+            showAllListBanRa();
+            Toast.makeText(BanRa.this, "Sửa thành công!", Toast.LENGTH_SHORT).show();
+            Log.i("InfBR", SL+L+DG+KH+TG+M+"\n"+sql);
+        }
+
     }
 
     @Override
@@ -156,7 +199,6 @@ public class BanRa extends AppCompatActivity implements ISanPham {
         sIntent.putExtra("TGD", sPBanRas.get(pos).getThoiGian());
         sIntent.putExtra("MD", sPBanRas.get(pos).getMaGiaoDich());
         sIntent.putExtra("KHD", sPBanRas.get(pos).getTenKhachHang());
-        sIntent.putExtra("PD", pos);
         sIntent.putExtra("CodeDetail", CODE_REQUEST_DETAILBR);
         startActivityForResult(sIntent, CODE_REQUEST_DETAILBR);
     }

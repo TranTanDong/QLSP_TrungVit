@@ -27,8 +27,9 @@ public class Details extends AppCompatActivity {
     private String L, TG, KH;
     private Intent dIntent;
 
-    public static final int REQUEST_EDIT = 13;
-    public static final int RESULT_EDIT = 14;
+    public static final int REQUEST_EDIT = 6;
+    public static final int RESULT_EDITMV = 7;
+    public static final int RESULT_EDITBR = 8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,34 @@ public class Details extends AppCompatActivity {
         setContentView(R.layout.activity_details);
         addControls();
         addEvents();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode==REQUEST_EDIT && resultCode==RESULT_EDITMV && data!=null) || (requestCode==REQUEST_EDIT && resultCode==RESULT_EDITBR && data!=null)){
+            String SL = data.getStringExtra("ESL");
+            String DG = data.getStringExtra("EDG");
+            String L = data.getStringExtra("EL");
+            String TG = data.getStringExtra("ETG");
+            int M = data.getIntExtra("EM", -1);
+            String KH = data.getStringExtra("EKH");
+            Log.i("InfEdit", SL+L+DG+TG+M+KH);
+
+
+            dIntent.putExtra("MBSL", SL);
+            dIntent.putExtra("MBDG", DG);
+            dIntent.putExtra("MBL", L);
+            dIntent.putExtra("MBTG", TG);
+            dIntent.putExtra("MBKH", KH);
+            dIntent.putExtra("MBM", M);
+
+            if (resultCode==RESULT_EDITMV){
+                setResult(MuaVao.CODE_RESULT_DETAILE, dIntent);
+            }else setResult(BanRa.CODE_RESULT_DETAILBRE, dIntent);
+
+            finish();
+        }
     }
 
     private void addControls() {
@@ -50,22 +79,25 @@ public class Details extends AppCompatActivity {
 
         //Xử lý thông tin từ MuaVao | BanRa gửi qua
         dIntent = getIntent();
-        SL = dIntent.getIntExtra("SLD", -1);
-        DG = dIntent.getIntExtra("DGD", -1);
-        L = dIntent.getStringExtra("LD");
-        TG = dIntent.getStringExtra("TGD");
-        KH = dIntent.getStringExtra("KHD");
-        M = dIntent.getIntExtra("MD", -1);
-        //P = dIntent.getIntExtra("PD", -1);
         C = dIntent.getIntExtra("CodeDetail", -1);
 
         //Set giá trị
-        tv_soLuong_detail.setText(String.valueOf(SL));
-        tv_donGia_detail.setText(String.valueOf(DG));
-        tv_loai_detail.setText(L);
-        tv_thoiGian_detail.setText(TG);
-        tv_khachHang_detail.setText(KH);
-        tv_tinhTien_detail.setText(String.valueOf(SL*DG));
+        if (C==MuaVao.CODE_REQUEST_DETAIL || C==BanRa.CODE_REQUEST_DETAILBR){
+            SL = dIntent.getIntExtra("SLD", -1);
+            DG = dIntent.getIntExtra("DGD", -1);
+            L = dIntent.getStringExtra("LD");
+            TG = dIntent.getStringExtra("TGD");
+            KH = dIntent.getStringExtra("KHD");
+            M = dIntent.getIntExtra("MD", -1);
+
+
+            tv_soLuong_detail.setText(String.valueOf(SL));
+            tv_donGia_detail.setText(String.valueOf(DG));
+            tv_loai_detail.setText(L);
+            tv_thoiGian_detail.setText(TG);
+            tv_khachHang_detail.setText(KH);
+            tv_tinhTien_detail.setText(String.valueOf(SL*DG));
+        }
 
         if (C==BanRa.CODE_REQUEST_DETAILBR){
             title_detail.setText("Trứng Bán Ra");
@@ -91,14 +123,14 @@ public class Details extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==R.id.edit_detail){
             Intent sIntent = new Intent(Details.this, EditGiaoDich.class);
-            sIntent.putExtra("SL", SL);
-            sIntent.putExtra("DG", DG);
-            sIntent.putExtra("TG", TG);
-            sIntent.putExtra("L", L);
-            sIntent.putExtra("KH", KH);
-            sIntent.putExtra("M", M);
-            sIntent.putExtra("C", C);
-            sIntent.putExtra("CD", REQUEST_EDIT);
+            sIntent.putExtra("SLE", SL);
+            sIntent.putExtra("DGE", DG);
+            sIntent.putExtra("TGE", TG);
+            sIntent.putExtra("LE", L);
+            sIntent.putExtra("KHE", KH);
+            sIntent.putExtra("ME", M);
+            sIntent.putExtra("CE", C);
+            sIntent.putExtra("CDE", REQUEST_EDIT);
             startActivityForResult(sIntent, REQUEST_EDIT);
         }
 

@@ -33,8 +33,8 @@ import java.util.ArrayList;
 
 public class KhachHang extends AppCompatActivity implements IKhachHang {
 
-    public static final int CODE_REQUEST_KHACHHANG = 1;
-    public static final int CODE_RESULT_KHACHHANG = 2;
+    public static final int CODE_REQUEST_KHACHHANG = 9;
+    public static final int CODE_RESULT_KHACHHANG = 10;
     private int REQUEST_CALL_PHONE = 0;
 
     RecyclerView rcv_khachHang;

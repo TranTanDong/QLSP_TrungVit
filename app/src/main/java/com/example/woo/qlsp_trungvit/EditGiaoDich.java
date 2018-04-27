@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -35,8 +36,11 @@ public class EditGiaoDich extends AppCompatActivity {
     private DecimalFormat dcf = new DecimalFormat("#,###,###,###");
 
     private ArrayList<String> arrayList = new ArrayList<String>();
+    private ArrayList<String> arrayL = new ArrayList<String>();
     private String[] arrLoai = {"Cồ", "Lạc", "So", "Lộn", "Giữa", "Ngang", "Dập", "Dạc", "Thúi", "Xác", "Lỡ"};
 
+    int C, M;
+    Intent aIntent;
 
     Database database;
 
@@ -77,13 +81,24 @@ public class EditGiaoDich extends AppCompatActivity {
         btn_luuGiaDich_E.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                xuLyLuuGiaoDich();
+                xuLySuaGiaoDich();
             }
         });
     }
 
-    private void xuLyLuuGiaoDich() {
+    private void xuLySuaGiaoDich() {
+        aIntent.putExtra("ESL", et_soLuong_E.getText().toString());
+        aIntent.putExtra("EDG", et_donGia_E.getText().toString());
+        aIntent.putExtra("EL", spn_loai_E.getSelectedItem().toString());
+        aIntent.putExtra("ETG", tv_thoiGian_E.getText().toString());
+        aIntent.putExtra("EKH", spn_khachHang_E.getSelectedItem().toString());
+        aIntent.putExtra("EM", M);
+        Log.i("EditInf", et_soLuong_E.getText().toString()+ spn_loai_E.getSelectedItem().toString()+ et_donGia_E.getText().toString()+tv_thoiGian_E.getText().toString()+spn_khachHang_E.getSelectedItem().toString()+M);
+        if (C==MuaVao.CODE_REQUEST_DETAIL){
+            setResult(Details.RESULT_EDITMV, aIntent);
+        }else setResult(Details.RESULT_EDITBR, aIntent);
 
+        finish();
     }
 
     private void xuLyTinhTien() {
@@ -136,11 +151,14 @@ public class EditGiaoDich extends AppCompatActivity {
         img_loaiGiaoDich_E = findViewById(R.id.img_loaiGiaoDich_E);
 
         //Spinner Loai
+        for (String i : arrLoai){
+            arrayL.add(i);
+        }
         spn_loai_E = findViewById(R.id.spn_loai_E);
         ArrayAdapter<String> adapterLoai = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_spinner_item,
-                arrLoai
+                arrayL
         );
         adapterLoai.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spn_loai_E.setAdapter(adapterLoai);
@@ -159,15 +177,15 @@ public class EditGiaoDich extends AppCompatActivity {
 
 
         //Xử lý thông tin từ Details gửi qua
-        Intent aIntent = getIntent();
-        int SL = aIntent.getIntExtra("SL", -1);
-        int DG = aIntent.getIntExtra("DG", -1);
-        String L = aIntent.getStringExtra("L");
-        String TG = aIntent.getStringExtra("TG");
-        String KH = aIntent.getStringExtra("KH");
-        int M = aIntent.getIntExtra("M", -1);
-        int C = aIntent.getIntExtra("C", -1);
-        int CD = aIntent.getIntExtra("CD", -1);
+        aIntent = getIntent();
+        int SL = aIntent.getIntExtra("SLE", -1);
+        int DG = aIntent.getIntExtra("DGE", -1);
+        String L = aIntent.getStringExtra("LE");
+        String TG = aIntent.getStringExtra("TGE");
+        String KH = aIntent.getStringExtra("KHE");
+        M = aIntent.getIntExtra("ME", -1);
+        C = aIntent.getIntExtra("CE", -1);
+        int CD = aIntent.getIntExtra("CDE", -1);
 
         if (C == BanRa.CODE_REQUEST_DETAILBR){
             img_loaiGiaoDich_E.setImageResource(R.drawable.ic_banra);
@@ -177,7 +195,9 @@ public class EditGiaoDich extends AppCompatActivity {
             et_soLuong_E.setText(String.valueOf(SL));
             et_donGia_E.setText(String.valueOf(DG));
             tv_thoiGian_E.setText(TG);
-
+            spn_khachHang_E.setSelection(arrayList.indexOf(KH));
+            spn_loai_E.setSelection(arrayL.indexOf(L));
+            tv_tinhTien_E.setText(dcf.format(SL*DG)+"đ  ");
         }
     }
 
