@@ -50,7 +50,12 @@
             android:label="Chi tiết sản phẩm" />
         <activity
             android:name=".EditGiaoDich"
-            android:label="Sửa giao dịch">
+            android:label="Sửa giao dịch"></activity>
+        <activity
+            android:name=".DetailKhachHang"
+            android:label="@string/app_detailkhachhang"
+            android:parentActivityName=".KhachHang"
+            >
 
         </activity>
     </application>

@@ -240,7 +240,12 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
     //Click Item Khách Hàng
     @Override
     public void ClickItemKhachHang(int pos) {
-        Toast.makeText(KhachHang.this,khachHangs.get(pos).getMaKH()+" "+khachHangs.get(pos).getTenKH(), Toast.LENGTH_SHORT).show();
+
+        Intent iIntent = new Intent(KhachHang.this, DetailKhachHang.class);
+        iIntent.putExtra("KH_MA", khachHangs.get(pos).getMaKH());
+        iIntent.putExtra("KH_TEN", khachHangs.get(pos).getTenKH());
+        startActivityForResult(iIntent, 111);
+//        Toast.makeText(KhachHang.this,khachHangs.get(pos).getMaKH()+" "+khachHangs.get(pos).getTenKH(), Toast.LENGTH_SHORT).show();
     }
 
     //Click Button Sửa Khách Hàng

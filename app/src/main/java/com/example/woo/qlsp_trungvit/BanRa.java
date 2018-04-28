@@ -74,10 +74,15 @@ public class BanRa extends AppCompatActivity implements ISanPham {
         data.close();
         sPBanRaAdapter.notifyDataSetChanged();
 
-        tv_tongSoLuongB.setText(dcf.format(sumSL)+"");
-        avgDG = sumDG/sPBanRas.size();
-        tv_giaTrungBinhB.setText(dcf.format(avgDG)+"");
         tv_tongTienB.setText(dcf.format(sumTien)+"đ");
+        tv_tongSoLuongB.setText(dcf.format(sumSL)+"");
+        if (sPBanRas.size() != 0){
+            avgDG = sumDG/sPBanRas.size();
+            tv_giaTrungBinhB.setText(dcf.format(avgDG)+"");
+        } else tv_giaTrungBinhB.setText("0");
+
+
+
     }
 
     private void addControls() {

@@ -77,11 +77,13 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
         data.close();
         sanPhamAdapter.notifyDataSetChanged();
 
-
-        tv_tongSoLuong.setText(dcf.format(sumSL)+"");
-        avgDG = sumDG/listSanPhams.size();
-        tv_giaTrungBinh.setText(dcf.format(avgDG)+"");
         tv_tongTien.setText(dcf.format(sumTien)+"đ");
+        tv_tongSoLuong.setText(dcf.format(sumSL)+"");
+        if (listSanPhams.size()!= 0){
+            avgDG = sumDG/listSanPhams.size();
+            tv_giaTrungBinh.setText(dcf.format(avgDG)+"");
+        } else tv_giaTrungBinh.setText("0");
+
     }
 
     private void addEvents() {
@@ -141,6 +143,14 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
             Intent intent = new Intent(MuaVao.this, AddGiaoDich.class);
             intent.putExtra("CodeMua", CODE_REQUEST_ADDSP);
             startActivityForResult(intent, CODE_REQUEST_ADDSP);
+        }
+
+        switch (item.getItemId()){
+            case R.id.day:
+                Cursor d = database.GetData("SELECT DATE('now')");
+                d.moveToFirst();
+                String day = d.getString(0);
+                Toast.makeText(MuaVao.this, day, Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
