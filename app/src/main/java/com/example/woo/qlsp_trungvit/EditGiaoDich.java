@@ -32,7 +32,7 @@ public class EditGiaoDich extends AppCompatActivity {
     private ImageView img_loaiGiaoDich_E;
 
     private Calendar calendar = Calendar.getInstance();
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private DecimalFormat dcf = new DecimalFormat("#,###,###,###");
 
     private ArrayList<String> arrayList = new ArrayList<String>();
@@ -93,7 +93,7 @@ public class EditGiaoDich extends AppCompatActivity {
         aIntent.putExtra("ETG", tv_thoiGian_E.getText().toString());
         aIntent.putExtra("EKH", spn_khachHang_E.getSelectedItem().toString());
         aIntent.putExtra("EM", M);
-        Log.i("EditInf", et_soLuong_E.getText().toString()+ spn_loai_E.getSelectedItem().toString()+ et_donGia_E.getText().toString()+tv_thoiGian_E.getText().toString()+spn_khachHang_E.getSelectedItem().toString()+M);
+        //Log.i("EditInf", et_soLuong_E.getText().toString()+ spn_loai_E.getSelectedItem().toString()+ et_donGia_E.getText().toString()+tv_thoiGian_E.getText().toString()+spn_khachHang_E.getSelectedItem().toString()+M);
         if (C==MuaVao.CODE_REQUEST_DETAIL){
             setResult(Details.RESULT_EDITMV, aIntent);
         }else setResult(Details.RESULT_EDITBR, aIntent);

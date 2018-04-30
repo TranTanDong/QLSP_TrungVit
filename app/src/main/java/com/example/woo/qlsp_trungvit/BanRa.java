@@ -67,8 +67,11 @@ public class BanRa extends AppCompatActivity implements ISanPham {
             sumDG += DG;
 
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
-            datatenKH.moveToFirst();
-            String tenKH = datatenKH.getString(1);
+            String tenKH;
+            if (datatenKH.moveToFirst()){
+                tenKH = datatenKH.getString(1);
+            } else tenKH = "";
+
             sPBanRas.add(new ListSanPham(Ma, SL, DG, L, TG, tenKH));
         }
         data.close();
@@ -92,8 +95,8 @@ public class BanRa extends AppCompatActivity implements ISanPham {
                 "BR_SOLG INTEGER NOT NULL, " +
                 "BR_DONGIA INTEGER NOT NULL, " +
                 "BR_LOAI VARCHAR(10) NOT NULL, " +
-                "BR_THOIGIAN SMALLDATETIME NOT NULL, " +
-                "BR_MAKH INTEGER NOT NULL, " +
+                "BR_THOIGIAN DATE NOT NULL, " +
+                "BR_MAKH INTEGER, " +
                 "CONSTRAINT FK_BAN_KHACHHANG FOREIGN KEY (BR_MAKH) REFERENCES KhachHang (KH_MA) ON UPDATE CASCADE)";
         database.QueryData(sql);
 
@@ -155,8 +158,10 @@ public class BanRa extends AppCompatActivity implements ISanPham {
             String KH = data.getStringExtra("KH");
 
             Cursor dataMaKH = database.GetData("SELECT * FROM KhachHang WHERE KH_TEN='"+KH+"'");
-            dataMaKH.moveToFirst();
-            int MaKH = dataMaKH.getInt(0);
+            int MaKH;
+            if (dataMaKH.moveToFirst()){
+                MaKH = dataMaKH.getInt(0);
+            } else MaKH = -1;
 
             String sql = "INSERT INTO BanRa VALUES(null, "+SL+", "+DG+", '"+L+"', '"+TG+"', "+MaKH+")";
 //            Log.i("INSERT1", sql);

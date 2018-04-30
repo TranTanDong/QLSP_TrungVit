@@ -40,7 +40,7 @@ public class AddGiaoDich extends AppCompatActivity {
     private ImageView img_loaiGiaoDich;
 
     private Calendar calendar = Calendar.getInstance();
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private DecimalFormat dcf = new DecimalFormat("#,###,###,###");
 
     private ArrayList<String> arrayList = new ArrayList<String>();
@@ -110,14 +110,10 @@ public class AddGiaoDich extends AppCompatActivity {
     }
 
     private void addItemSpinnerKH() {
-//        arrayList.clear();
-//        for (int i = 0; i < KhachHang.khachHangs.size(); i++){
-//            Log.i("ArrayList",KhachHang.khachHangs.get(i).getTenKH());
-//            arrayList.add(KhachHang.khachHangs.get(i).getTenKH());
-//        }
+        arrayList.clear();
+        arrayList.add("Khách Mới");
         database = new Database(AddGiaoDich.this);
         Cursor data = database.GetData("SELECT * FROM KhachHang");
-        arrayList.clear();
         while (data.moveToNext()){
             String TenKH = data.getString(1);
             arrayList.add(TenKH);
