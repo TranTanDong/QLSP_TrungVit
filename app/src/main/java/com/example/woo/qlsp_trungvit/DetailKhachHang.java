@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -18,9 +21,9 @@ import java.util.ArrayList;
 
 public class DetailKhachHang extends AppCompatActivity implements ISanPham{
 
-    private RecyclerView rcv_muaKH, rcv_banKH, rcv_noKH;
+    private RecyclerView rcv_muaKH, rcv_banKH;
     private TabHost tabHost;
-    private TextView tv_tongSL_Mua, tv_giaTB_Mua, tv_tongTien_Mua, tv_tongSL_Ban, tv_giaTB_Ban, tv_tongTien_Ban;
+    private TextView tv_tongSL_Mua, tv_giaTB_Mua, tv_tongTien_Mua, tv_tongSL_Ban, tv_giaTB_Ban, tv_tongTien_Ban, tv_demItemKHMV, tv_demItemKHBR;
 
     ArrayList<ListSanPham> muaSanPhams = new ArrayList<>();
     ArrayList<ListSanPham> banSanPhams = new ArrayList<>();
@@ -43,6 +46,7 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
         showListBanRaOfKhachHang();
     }
 
+
     private void addControls() {
 
         database = new Database(DetailKhachHang.this);
@@ -53,6 +57,8 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
         tv_tongSL_Ban = findViewById(R.id.tv_tongSL_Ban);
         tv_giaTB_Ban = findViewById(R.id.tv_giaTB_Ban);
         tv_tongTien_Ban = findViewById(R.id.tv_tongTien_Ban);
+        tv_demItemKHMV = findViewById(R.id.tv_demItemKHMV);
+        tv_demItemKHBR = findViewById(R.id.tv_demItemKHBR);
 
         //Nhận dữ liệu từ ClickItemKhachHang
         Intent fIntent = getIntent();
@@ -75,10 +81,6 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
         tab2.setContent(R.id.tab2);
         tabHost.addTab(tab2);
 
-        TabHost.TabSpec tab3 = tabHost.newTabSpec("t3");
-        tab3.setIndicator("NỢ");
-        tab3.setContent(R.id.tab3);
-        tabHost.addTab(tab3);
 
         //Xử lý RecyclerView
         rcv_muaKH = findViewById(R.id.rcv_muaKH);
@@ -93,15 +95,15 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
 
 
 
+
     }
 
     private void showListMuaVaoOfKhachHang() {
         Cursor data = database.GetData("SELECT * FROM MuaVao WHERE MV_MAKH="+MA+" ORDER BY MV_THOIGIAN DESC");
         muaSanPhams.clear();
         int sumSL = 0;
-        int sumDG = 0;
         int sumTien = 0;
-        int avgDG;
+        double avgDG;
         while (data.moveToNext()){
             int Ma = data.getInt(0);
             int SL = data.getInt(1);
@@ -112,7 +114,6 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
 
             sumTien += SL*DG;
             sumSL += SL;
-            sumDG += DG;
 
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             datatenKH.moveToFirst();
@@ -125,18 +126,19 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
         tv_tongSL_Mua.setText(dcf.format(sumSL)+"");
         tv_tongTien_Mua.setText(dcf.format(sumTien)+"đ");
         if (muaSanPhams.size()!=0){
-           avgDG = sumDG/muaSanPhams.size();
+           avgDG = sumTien/sumSL;
            tv_giaTB_Mua.setText(dcf.format(avgDG)+"");
         } else tv_giaTB_Mua.setText("0");
+
+        tv_demItemKHMV.setText("Số giao dịch: "+muaSanPhams.size());
     }
 
     private void showListBanRaOfKhachHang() {
         Cursor data = database.GetData("SELECT * FROM BanRa WHERE BR_MAKH="+MA+" ORDER BY BR_THOIGIAN DESC");
         banSanPhams.clear();
         int sumSL = 0;
-        int sumDG = 0;
         int sumTien = 0;
-        int avgDG;
+        double avgDG;
         while (data.moveToNext()){
             int Ma = data.getInt(0);
             int SL = data.getInt(1);
@@ -147,7 +149,6 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
 
             sumTien += SL*DG;
             sumSL += SL;
-            sumDG += DG;
 
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             datatenKH.moveToFirst();
@@ -160,9 +161,11 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
         tv_tongSL_Ban.setText(dcf.format(sumSL)+"");
         tv_tongTien_Ban.setText(dcf.format(sumTien)+"đ");
         if (banSanPhams.size()!=0){
-            avgDG = sumDG/banSanPhams.size();
+            avgDG = sumTien/sumSL;
             tv_giaTB_Ban.setText(dcf.format(avgDG)+"");
         } else tv_giaTB_Ban.setText("0");
+
+        tv_demItemKHBR.setText("Số giao dịch: "+banSanPhams.size());
     }
 
     private void addEvents() {

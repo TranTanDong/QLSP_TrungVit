@@ -34,7 +34,7 @@ public class BanRa extends AppCompatActivity implements ISanPham {
 
     Database database;
 
-    private TextView tv_tongSoLuongB, tv_giaTrungBinhB, tv_tongTienB;
+    private TextView tv_tongSoLuongB, tv_giaTrungBinhB, tv_tongTienB, tv_demItem;
     private DecimalFormat dcf = new DecimalFormat("#,###,###,###");
 
     @Override
@@ -48,12 +48,11 @@ public class BanRa extends AppCompatActivity implements ISanPham {
     }
 
     private void showAllListBanRa() {
-        Cursor data = database.GetData("SELECT * FROM BanRa ORDER BY BR_THOIGIAN DESC, BR_DONGIA DESC");
+        Cursor data = database.GetData("SELECT * FROM BanRa ORDER BY BR_MA DESC");
         sPBanRas.clear();
         int sumSL = 0;
-        int sumDG = 0;
         int sumTien = 0;
-        int avgDG;
+        double avgDG;
         while (data.moveToNext()){
             int Ma = data.getInt(0);
             int SL = data.getInt(1);
@@ -64,7 +63,6 @@ public class BanRa extends AppCompatActivity implements ISanPham {
 
             sumTien += SL*DG;
             sumSL += SL;
-            sumDG += DG;
 
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             String tenKH;
@@ -80,11 +78,11 @@ public class BanRa extends AppCompatActivity implements ISanPham {
         tv_tongTienB.setText(dcf.format(sumTien)+"đ");
         tv_tongSoLuongB.setText(dcf.format(sumSL)+"");
         if (sPBanRas.size() != 0){
-            avgDG = sumDG/sPBanRas.size();
+            avgDG = sumTien/sumSL;
             tv_giaTrungBinhB.setText(dcf.format(avgDG)+"");
         } else tv_giaTrungBinhB.setText("0");
 
-
+        tv_demItem.setText("Số giao dịch: "+sPBanRas.size());
 
     }
 
@@ -116,6 +114,7 @@ public class BanRa extends AppCompatActivity implements ISanPham {
         tv_tongSoLuongB = findViewById(R.id.tv_tongSoLuongB);
         tv_giaTrungBinhB = findViewById(R.id.tv_giaTrungBinhB);
         tv_tongTienB = findViewById(R.id.tv_tongTienB);
+        tv_demItem = findViewById(R.id.tv_demItem);
 
 
         //Xử lý RecyclerView rcv_muaVao
@@ -138,12 +137,109 @@ public class BanRa extends AppCompatActivity implements ISanPham {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.add){
-            Intent intent = new Intent(BanRa.this, AddGiaoDich.class);
-            intent.putExtra("CodeMua", CODE_REQUEST_ADDSPB);
-            startActivityForResult(intent, CODE_REQUEST_ADDSPB);
+
+        switch (item.getItemId()){
+            case R.id.add:
+                Intent intent = new Intent(BanRa.this, AddGiaoDich.class);
+                intent.putExtra("CodeMua", CODE_REQUEST_ADDSPB);
+                startActivityForResult(intent, CODE_REQUEST_ADDSPB);
+                break;
+            case R.id.day:
+                showListBanRaToDay();
+                break;
+            case R.id.month:
+                showListBanRaToMonth();
+                break;
+            case R.id.all:
+                showAllListBanRa();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showListBanRaToMonth() {
+        Cursor data = database.GetData("SELECT * FROM BanRa ORDER BY BR_MA DESC");
+        sPBanRas.clear();
+        int sumSL = 0;
+        int sumTien = 0;
+        double avgDG;
+        while (data.moveToNext()){
+            int Ma = data.getInt(0);
+            int SL = data.getInt(1);
+            int DG = data.getInt(2);
+            String L = data.getString(3);
+            String TG = data.getString(4);
+            int MaKH = data.getInt(5);
+
+            Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
+            String tenKH;
+            if (datatenKH.moveToFirst()){
+                tenKH = datatenKH.getString(1);
+            } else tenKH = "";
+
+            //Lấy tháng năm hiện tại để so sánh
+            Cursor d = database.GetData("SELECT DATE('now')");
+            d.moveToFirst();
+            String day = d.getString(0);
+            day = day.substring(0, 7);
+
+            if (day.equals(TG.substring(0,7))){
+                sumTien += SL*DG;
+                sumSL += SL;
+                sPBanRas.add(new ListSanPham(Ma, SL, DG, L, TG, tenKH));
+            }
+
+
+        }
+        data.close();
+        sPBanRaAdapter.notifyDataSetChanged();
+
+        tv_tongTienB.setText(dcf.format(sumTien)+"đ");
+        tv_tongSoLuongB.setText(dcf.format(sumSL)+"");
+        if (sPBanRas.size() != 0){
+            avgDG = sumTien/sumSL;
+            tv_giaTrungBinhB.setText(dcf.format(avgDG)+"");
+        } else tv_giaTrungBinhB.setText("0");
+
+        tv_demItem.setText("Số giao dịch: "+sPBanRas.size());
+    }
+
+    private void showListBanRaToDay() {
+        Cursor data = database.GetData("SELECT * FROM BanRa WHERE BR_THOIGIAN=DATE('now') ORDER BY BR_MA DESC");
+        sPBanRas.clear();
+        int sumSL = 0;
+        int sumTien = 0;
+        double avgDG;
+        while (data.moveToNext()){
+            int Ma = data.getInt(0);
+            int SL = data.getInt(1);
+            int DG = data.getInt(2);
+            String L = data.getString(3);
+            String TG = data.getString(4);
+            int MaKH = data.getInt(5);
+
+            sumTien += SL*DG;
+            sumSL += SL;
+
+            Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
+            String tenKH;
+            if (datatenKH.moveToFirst()){
+                tenKH = datatenKH.getString(1);
+            } else tenKH = "";
+
+            sPBanRas.add(new ListSanPham(Ma, SL, DG, L, TG, tenKH));
+        }
+        data.close();
+        sPBanRaAdapter.notifyDataSetChanged();
+
+        tv_tongTienB.setText(dcf.format(sumTien)+"đ");
+        tv_tongSoLuongB.setText(dcf.format(sumSL)+"");
+        if (sPBanRas.size() != 0){
+            avgDG = sumTien/sumSL;
+            tv_giaTrungBinhB.setText(dcf.format(avgDG)+"");
+        } else tv_giaTrungBinhB.setText("0");
+
+        tv_demItem.setText("Số giao dịch: "+sPBanRas.size());
     }
 
     @Override

@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/timkiem"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="Tìm khách hàng"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/addkhachhang"
         android:icon="@android:drawable/ic_menu_add"
         android:title="Thêm khách hàng"

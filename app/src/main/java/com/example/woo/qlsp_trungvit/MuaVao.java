@@ -30,7 +30,7 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
     public static final int CODE_RESULT_DETAIL = 14;
     public static final int CODE_RESULT_DETAILE = 15;
 
-    private TextView tv_tongSoLuong, tv_giaTrungBinh, tv_tongTien;
+    private TextView tv_tongSoLuong, tv_giaTrungBinh, tv_tongTien, tv_demItemMV;
 
     private RecyclerView rcv_muaVao;
     ArrayList<ListSanPham> listSanPhams = new ArrayList<>();
@@ -51,12 +51,11 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
     }
 
     private void showAllListMuaVao() {
-        Cursor data = database.GetData("SELECT * FROM MuaVao ORDER BY MV_THOIGIAN DESC");
+        Cursor data = database.GetData("SELECT * FROM MuaVao ORDER BY MV_MA DESC");
         listSanPhams.clear();
         int sumSL = 0;
-        int sumDG = 0;
         int sumTien = 0;
-        int avgDG;
+        double avgDG;
         while (data.moveToNext()){
             int Ma = data.getInt(0);
             int SL = data.getInt(1);
@@ -67,7 +66,6 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
 
             sumTien += SL*DG;
             sumSL += SL;
-            sumDG += DG;
 
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             String tenKH;
@@ -83,10 +81,10 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
         tv_tongTien.setText(dcf.format(sumTien)+"đ");
         tv_tongSoLuong.setText(dcf.format(sumSL)+"");
         if (listSanPhams.size()!= 0){
-            avgDG = sumDG/listSanPhams.size();
+            avgDG = sumTien/sumSL;
             tv_giaTrungBinh.setText(dcf.format(avgDG)+"");
         } else tv_giaTrungBinh.setText("0");
-
+        tv_demItemMV.setText("Số giao dịch: "+listSanPhams.size());
     }
 
     private void addEvents() {
@@ -105,26 +103,11 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
                 "CONSTRAINT FK_MUA_KHACHHANG FOREIGN KEY (MV_MAKH) REFERENCES KhachHang (KH_MA) ON UPDATE CASCADE)";
         database.QueryData(sql);
 
-//        database.QueryData("INSERT INTO MuaVao VALUES(null, 1000, 1200, 'Cồ', '10/03/2018', 1)");
-//        database.QueryData("INSERT INTO MuaVao VALUES(null, 3000, 1500, 'So', '11/03/2018', 2)");
-//        database.QueryData("INSERT INTO MuaVao VALUES(null, 5000, 1000, 'Lạc', '12/03/2018', 9)");
-
-        //Thêm dữ liệu vào listSanPham để test
-//        listSanPhams.clear();
-//        listSanPhams.add(new ListSanPham(1, 1000, 1500, "Cồ", "22/12/2018", "NVA"));
-//        listSanPhams.add(new ListSanPham(2, 1100, 1600, "So", "23/12/2018", "NVB"));
-//        listSanPhams.add(new ListSanPham(3, 1200, 1700, "Cồ", "21/12/2018", "NVD"));
-//        listSanPhams.add(new ListSanPham(4, 1300, 1800, "Lạc", "24/12/2018", "NVE"));
-//        listSanPhams.add(new ListSanPham(5, 1400, 1900, "Cồ", "25/12/2018", "NVT"));
-//        listSanPhams.add(new ListSanPham(6, 1500, 1200, "Dạc", "26/12/2018", "NVS"));
-//        listSanPhams.add(new ListSanPham(7, 1600, 1300, "Ngang", "27/12/2018", "NVX"));
-//        listSanPhams.add(new ListSanPham(8, 1700, 1400, "Cồ", "28/12/2018", "NVZ"));
-//        listSanPhams.add(new ListSanPham(9, 1800, 1100, "Giữa", "29/12/2018", "NVV"));
-//        listSanPhams.add(new ListSanPham(10, 1900, 1950, "Cồ", "20/12/2018", "NVN"));
 
         tv_tongSoLuong = findViewById(R.id.tv_tongSoLuong);
         tv_giaTrungBinh = findViewById(R.id.tv_giaTrungBinh);
         tv_tongTien = findViewById(R.id.tv_tongTien);
+        tv_demItemMV = findViewById(R.id.tv_demItemMV);
 
         //Xử lý RecyclerView rcv_muaVao
         rcv_muaVao = findViewById(R.id.rcv_muaVao);
@@ -142,20 +125,109 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.add){
-            Intent intent = new Intent(MuaVao.this, AddGiaoDich.class);
-            intent.putExtra("CodeMua", CODE_REQUEST_ADDSP);
-            startActivityForResult(intent, CODE_REQUEST_ADDSP);
-        }
 
         switch (item.getItemId()){
+            case R.id.add:
+                Intent intent = new Intent(MuaVao.this, AddGiaoDich.class);
+                intent.putExtra("CodeMua", CODE_REQUEST_ADDSP);
+                startActivityForResult(intent, CODE_REQUEST_ADDSP);
+                break;
             case R.id.day:
-                Cursor d = database.GetData("SELECT DATE('now')");
-                d.moveToFirst();
-                String day = d.getString(0);
-                Toast.makeText(MuaVao.this, day, Toast.LENGTH_SHORT).show();
+                showListMuaVaoToDay();
+                break;
+            case R.id.month:
+                showListMuaVaoToMonth();
+                break;
+            case R.id.all:
+                showAllListMuaVao();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showListMuaVaoToMonth() {
+        Cursor data = database.GetData("SELECT * FROM MuaVao ORDER BY MV_MA DESC");
+        listSanPhams.clear();
+        int sumSL = 0;
+        int sumTien = 0;
+        double avgDG;
+        while (data.moveToNext()){
+            int Ma = data.getInt(0);
+            int SL = data.getInt(1);
+            int DG = data.getInt(2);
+            String L = data.getString(3);
+            String TG = data.getString(4);
+            int MaKH = data.getInt(5);
+
+            Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
+            String tenKH;
+            if (datatenKH.moveToFirst()){
+                tenKH = datatenKH.getString(1);
+            } else tenKH = "";
+
+            //Lấy tháng năm hiện tại để so sánh
+            Cursor d = database.GetData("SELECT DATE('now')");
+            d.moveToFirst();
+            String day = d.getString(0);
+            day = day.substring(0, 7);
+
+            if (day.equals(TG.substring(0,7))){
+                sumTien += SL*DG;
+                sumSL += SL;
+                listSanPhams.add(new ListSanPham(Ma, SL, DG, L, TG, tenKH));
+            }
+
+
+        }
+        data.close();
+        sanPhamAdapter.notifyDataSetChanged();
+
+        tv_tongTien.setText(dcf.format(sumTien)+"đ");
+        tv_tongSoLuong.setText(dcf.format(sumSL)+"");
+        if (listSanPhams.size() != 0){
+            avgDG = sumTien/sumSL;
+            tv_giaTrungBinh.setText(dcf.format(avgDG)+"");
+        } else tv_giaTrungBinh.setText("0");
+
+        tv_demItemMV.setText("Số giao dịch: "+listSanPhams.size());
+    }
+
+    private void showListMuaVaoToDay() {
+        Cursor data = database.GetData("SELECT * FROM MuaVao WHERE MV_THOIGIAN=DATE('now') ORDER BY MV_MA DESC");
+        listSanPhams.clear();
+        int sumSL = 0;
+        int sumTien = 0;
+        double avgDG;
+        while (data.moveToNext()){
+            int Ma = data.getInt(0);
+            int SL = data.getInt(1);
+            int DG = data.getInt(2);
+            String L = data.getString(3);
+            String TG = data.getString(4);
+            int MaKH = data.getInt(5);
+
+            sumTien += SL*DG;
+            sumSL += SL;
+
+            Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
+            String tenKH;
+            if (datatenKH.moveToFirst()){
+                tenKH = datatenKH.getString(1);
+            } else tenKH = "";
+
+            listSanPhams.add(new ListSanPham(Ma, SL, DG, L, TG, tenKH));
+        }
+        data.close();
+        sanPhamAdapter.notifyDataSetChanged();
+
+        tv_tongTien.setText(dcf.format(sumTien)+"đ");
+        tv_tongSoLuong.setText(dcf.format(sumSL)+"");
+        if (listSanPhams.size() != 0){
+            avgDG = sumTien/sumSL;
+            tv_giaTrungBinh.setText(dcf.format(avgDG)+"");
+        } else tv_giaTrungBinh.setText("0");
+
+        tv_demItemMV.setText("Số giao dịch: "+listSanPhams.size());
     }
 
     @Override

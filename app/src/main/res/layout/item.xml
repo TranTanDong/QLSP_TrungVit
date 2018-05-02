@@ -13,45 +13,63 @@
 
         <LinearLayout
             android:id="@+id/lnl"
-            android:layout_width="200dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_soLuongSP"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingTop="3dp"
-                android:text="100.000"
-                android:textColor="@android:color/white"
-                android:textSize="20dp"
-                android:textStyle="bold|italic" />
-
-            <TextView
+                android:id="@+id/tv_tenKHSP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="x"
-                android:textColor="@android:color/white"
+                android:text="Dương Lữ Điện"
                 android:textSize="18dp"
                 android:textStyle="bold|italic" />
 
-            <TextView
-                android:id="@+id/tv_donGiaSP"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:gravity="end"
-                android:paddingBottom="3dp"
-                android:paddingEnd="20dp"
-                android:text="2.400"
-                android:textColor="@android:color/white"
-                android:textSize="20dp"
-                android:textStyle="bold|italic" />
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/tv_soLuongSP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingTop="3dp"
+                    android:text="100.000"
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="x"
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/tv_donGiaSP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="2.400"
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp"
+                    android:textStyle="bold|italic" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -60,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="3dp"
             android:orientation="vertical">
 
             <TextView
@@ -69,9 +87,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingTop="3dp"
-                android:text="22/12/2018"
+                android:text="2018-02-02"
                 android:textColor="@android:color/black"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="bold|italic" />
 
             <TextView
@@ -81,7 +99,7 @@
                 android:gravity="center"
                 android:text="Cồ"
                 android:textColor="@android:color/black"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textStyle="bold|italic" />
 
 
@@ -93,7 +111,7 @@
                 android:paddingBottom="3dp"
                 android:text="23.000.000đ"
                 android:textColor="@android:color/holo_orange_dark"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="bold|italic" />
 
 

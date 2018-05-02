@@ -43,6 +43,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 
     @Override
     public void onBindViewHolder(SanPhamViewHolder holder, final int position) {
+        holder.tv_tenKHSP.setText(sanPhams.get(position).getTenKhachHang());
         holder.tv_soLuongSP.setText(String.valueOf(dcf.format(sanPhams.get(position).getSoLuong())));
         holder.tv_donGiaSP.setText(String.valueOf(dcf.format(sanPhams.get(position).getDonGia())));
         holder.tv_thoiGianSP.setText(sanPhams.get(position).getThoiGian());
@@ -67,7 +68,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
     }
 
     public class SanPhamViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_soLuongSP, tv_donGiaSP, tv_thoiGianSP, tv_loaiSP, tv_tinhTienSP;
+        private TextView tv_soLuongSP, tv_donGiaSP, tv_thoiGianSP, tv_loaiSP, tv_tinhTienSP, tv_tenKHSP;
 
 
         public SanPhamViewHolder(View itemView) {
@@ -78,6 +79,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
             tv_thoiGianSP = itemView.findViewById(R.id.tv_thoiGianSP);
             tv_loaiSP = itemView.findViewById(R.id.tv_loaiSP);
             tv_tinhTienSP = itemView.findViewById(R.id.tv_tinhTienSP);
+            tv_tenKHSP = itemView.findViewById(R.id.tv_tenKHSP);
 
         }
     }

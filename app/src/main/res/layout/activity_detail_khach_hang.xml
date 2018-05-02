@@ -40,12 +40,31 @@
                         android:padding="8dp"
                         android:orientation="vertical">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Tổng quan"
-                            android:textSize="24dp"
-                            android:textStyle="bold"/>
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Tổng quan"
+                                android:textSize="20dp"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:id="@+id/tv_demItemKHMV"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:textSize="18dp"
+                                android:textStyle="italic"
+                                android:text="Số giao dịch: 10"/>
+
+                        </LinearLayout>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -110,7 +129,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="end"
                             android:text="7.000.000"
-                            android:textSize="18dp" />
+                            android:textSize="16dp" />
 
                     </LinearLayout>
 
@@ -132,12 +151,31 @@
                         android:padding="8dp"
                         android:orientation="vertical">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Tổng quan"
-                            android:textSize="24dp"
-                            android:textStyle="bold"/>
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Tổng quan"
+                                android:textSize="20dp"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:id="@+id/tv_demItemKHBR"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:textSize="18dp"
+                                android:textStyle="italic"
+                                android:text="Số giao dịch: 10"/>
+
+                        </LinearLayout>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -202,7 +240,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="end"
                             android:text="7.000.000"
-                            android:textSize="18dp" />
+                            android:textSize="16dp" />
 
                     </LinearLayout>
 
@@ -212,17 +250,6 @@
                         android:layout_height="match_parent" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/tab3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rcv_noKH"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
             </FrameLayout>
         </LinearLayout>
     </TabHost>
