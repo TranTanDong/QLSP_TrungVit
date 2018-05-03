@@ -99,7 +99,7 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
     }
 
     private void showListMuaVaoOfKhachHang() {
-        Cursor data = database.GetData("SELECT * FROM MuaVao WHERE MV_MAKH="+MA+" ORDER BY MV_THOIGIAN DESC");
+        Cursor data = database.GetData("SELECT * FROM MuaVao WHERE MV_MAKH="+MA+" ORDER BY MV_MA DESC");
         muaSanPhams.clear();
         int sumSL = 0;
         int sumTien = 0;
@@ -118,7 +118,7 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             datatenKH.moveToFirst();
             String tenKH = datatenKH.getString(1);
-            muaSanPhams.add(new ListSanPham(Ma, SL, DG, L, TG, tenKH));
+            muaSanPhams.add(new ListSanPham(Ma, SL, DG, L, TG, null));
         }
         data.close();
         muaAdapter.notifyDataSetChanged();
@@ -134,7 +134,7 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
     }
 
     private void showListBanRaOfKhachHang() {
-        Cursor data = database.GetData("SELECT * FROM BanRa WHERE BR_MAKH="+MA+" ORDER BY BR_THOIGIAN DESC");
+        Cursor data = database.GetData("SELECT * FROM BanRa WHERE BR_MAKH="+MA+" ORDER BY BR_MA DESC");
         banSanPhams.clear();
         int sumSL = 0;
         int sumTien = 0;
@@ -153,7 +153,7 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             datatenKH.moveToFirst();
             String tenKH = datatenKH.getString(1);
-            banSanPhams.add(new ListSanPham(Ma, SL, DG, L, TG, tenKH));
+            banSanPhams.add(new ListSanPham(Ma, SL, DG, L, TG, null));
         }
         data.close();
         banAdapter.notifyDataSetChanged();

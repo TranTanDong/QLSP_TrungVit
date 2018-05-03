@@ -51,14 +51,15 @@
             android:label="Chi tiết sản phẩm" />
         <activity
             android:name=".EditGiaoDich"
-            android:label="Sửa giao dịch"></activity>
+            android:label="Sửa giao dịch" />
         <activity
             android:name=".DetailKhachHang"
             android:label="@string/app_detailkhachhang"
-            android:parentActivityName=".KhachHang"
-            >
-
-        </activity>
+            android:parentActivityName=".KhachHang"></activity>
+        <activity
+            android:name=".DetailThongKe"
+            android:label="Chi Tiết Thống Kê"
+            android:parentActivityName=".ThongKe"></activity>
     </application>
 
 </manifest>

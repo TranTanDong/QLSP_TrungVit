@@ -7,37 +7,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.woo.qlsp_trungvit.Interface.IThongKe;
+import com.example.woo.qlsp_trungvit.Interface.IThongKeMV;
 import com.example.woo.qlsp_trungvit.R;
 
 import java.util.ArrayList;
 
-public class ThongKeAdapter extends RecyclerView.Adapter<ThongKeAdapter.ThongKeViewHolder> {
+public class ThongKeMVAdapter extends RecyclerView.Adapter<ThongKeMVAdapter.ThongKeMVViewHolder> {
 
-    Context context;
-    ArrayList<String> listThongKes;
-    IThongKe iThongKe;
+    private Context context;
+    private ArrayList<String> listThongKes;
+    private IThongKeMV iThongKeMV;
 
-    public ThongKeAdapter(Context context, ArrayList<String> listThongKes, IThongKe iThongKe) {
+    public ThongKeMVAdapter(Context context, ArrayList<String> listThongKes, IThongKeMV iThongKeMV) {
         this.context = context;
         this.listThongKes = listThongKes;
-        this.iThongKe = iThongKe;
+        this.iThongKeMV = iThongKeMV;
     }
 
     @Override
-    public ThongKeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ThongKeMVViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View timeView = LayoutInflater.from(context).inflate(R.layout.item_time, parent, false);
-        return new ThongKeViewHolder(timeView);
+        return new ThongKeMVViewHolder(timeView);
     }
 
     @Override
-    public void onBindViewHolder(ThongKeViewHolder holder, int position) {
-        holder.tv_thoiGianTK.setText("THÁNG "+listThongKes.get(position));
+    public void onBindViewHolder(ThongKeMVViewHolder holder, int position) {
+        holder.tv_thoiGianTK.setText(listThongKes.get(position));
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iThongKe.ClickItemThongKe(Integer.parseInt(view.getTag().toString()));
+                iThongKeMV.ClickItemThongKeMV(Integer.parseInt(view.getTag().toString()));
             }
         });
     }
@@ -47,11 +47,11 @@ public class ThongKeAdapter extends RecyclerView.Adapter<ThongKeAdapter.ThongKeV
         return listThongKes.size();
     }
 
-    public class ThongKeViewHolder extends RecyclerView.ViewHolder{
+    public class ThongKeMVViewHolder extends RecyclerView.ViewHolder{
 
         private TextView tv_thoiGianTK;
 
-        public ThongKeViewHolder(View itemView) {
+        public ThongKeMVViewHolder(View itemView) {
             super(itemView);
             tv_thoiGianTK = itemView.findViewById(R.id.tv_thoiGianTK);
         }

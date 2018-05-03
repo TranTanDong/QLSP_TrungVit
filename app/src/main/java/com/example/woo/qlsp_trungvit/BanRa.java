@@ -263,7 +263,7 @@ public class BanRa extends AppCompatActivity implements ISanPham {
 //            Log.i("INSERT1", sql);
             database.QueryData(sql);
             showAllListBanRa();
-            Toast.makeText(BanRa.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BanRa.this, "Đã thêm thành công!", Toast.LENGTH_SHORT).show();
         }
 
         if (requestCode==CODE_REQUEST_DETAILBR && resultCode==CODE_RESULT_DETAILBR){
@@ -290,7 +290,7 @@ public class BanRa extends AppCompatActivity implements ISanPham {
             String sql = "UPDATE BanRa SET BR_SOLG="+SL+", BR_DONGIA="+DG+", BR_LOAI='"+L+"', BR_THOIGIAN='"+TG+"', BR_MAKH="+MaKH+" WHERE BR_MA="+M;
             database.QueryData(sql);
             showAllListBanRa();
-            Toast.makeText(BanRa.this, "Sửa thành công!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BanRa.this, "Đã sửa thành công!", Toast.LENGTH_SHORT).show();
             Log.i("InfBR", SL+L+DG+KH+TG+M+"\n"+sql);
         }
 
