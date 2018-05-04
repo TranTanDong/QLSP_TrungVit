@@ -177,7 +177,6 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
     @Override
     public void DelKhachHang(final int pos) {
         AlertDialog.Builder builder = new AlertDialog.Builder(KhachHang.this);
-        builder.setTitle("Xóa Khách Hàng");
         builder.setMessage("Bạn muốn xóa '"+khachHangs.get(pos).getTenKH()+"'?");
         builder.setCancelable(false);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

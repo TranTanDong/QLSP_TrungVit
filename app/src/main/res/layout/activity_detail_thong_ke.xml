@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TỔNG QUAN"
+                android:textColor="@android:color/holo_orange_dark"
                 android:textSize="20dp"
                 android:textStyle="bold"/>
 
@@ -34,6 +35,7 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:textSize="18dp"
+                android:textColor="@android:color/holo_orange_dark"
                 android:textStyle="italic"
                 android:text="Số giao dịch: 10"/>
 
@@ -41,8 +43,8 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorPrimary"/>
+            android:layout_height="3dp"
+            android:background="@android:color/holo_orange_dark"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,6 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tổng số lượng"
+                android:textColor="@android:color/holo_orange_dark"
                 android:gravity="left"
                 android:layout_weight="1"/>
 
@@ -61,6 +64,7 @@
                 android:id="@+id/tv_tongSoLuongTK"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_orange_dark"
                 android:gravity="end"
                 android:text="3.500"
                 android:layout_weight="1"/>
@@ -77,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Giá trung bình"
+                android:textColor="@android:color/holo_orange_dark"
                 android:gravity="left"
                 android:layout_weight="1"/>
 
@@ -84,6 +89,7 @@
                 android:id="@+id/tv_giaTrungBinhTK"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_orange_dark"
                 android:gravity="end"
                 android:text="2.000"
                 android:layout_weight="1"/>
@@ -92,14 +98,15 @@
 
         <TextView
             android:layout_width="200dp"
-            android:layout_height="1dp"
+            android:layout_height="2dp"
             android:layout_gravity="end"
-            android:background="@color/colorPrimary"/>
+            android:background="@android:color/holo_orange_dark"/>
 
         <TextView
             android:id="@+id/tv_tongTienTK"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_orange_dark"
             android:text="7.000.000"
             android:textSize="18dp"
             android:gravity="end"/>

@@ -17,6 +17,7 @@
         android:id="@+id/et_tenKH"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_orange_dark"
         android:ems="30"
         android:maxLength="30"/>
 
@@ -30,6 +31,7 @@
         android:id="@+id/et_sdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_orange_dark"
         android:ems="11"
         android:inputType="number"
         android:maxLength="11" />
@@ -44,6 +46,7 @@
         android:id="@+id/et_diachi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_orange_dark"
         android:ems="50"
         android:maxLength="50"/>
 

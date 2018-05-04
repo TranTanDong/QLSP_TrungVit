@@ -68,7 +68,7 @@ public class DetailThongKe extends AppCompatActivity implements ISanPham {
             String tenKH;
             if (datatenKH.moveToFirst()){
                 tenKH = datatenKH.getString(1);
-            } else tenKH = "";
+            } else tenKH = "GUEST";
 
             if (Time.equals(TG.substring(0, l))){
                 sumTien += SL*DG;

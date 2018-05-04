@@ -136,7 +136,6 @@ public class Details extends AppCompatActivity {
 
         if (item.getItemId()==R.id.del_detail){
             AlertDialog.Builder builder = new AlertDialog.Builder(Details.this);
-            builder.setTitle("Xóa Sản Phẩm");
             builder.setMessage("Bạn muốn xóa giao dịch này không?");
             builder.setCancelable(false);
             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

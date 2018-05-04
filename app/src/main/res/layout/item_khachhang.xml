@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
-        app:cardBackgroundColor="@android:color/darker_gray"
+        app:cardBackgroundColor="@android:color/white"
         app:cardCornerRadius="10dp">
 
         <RelativeLayout
@@ -36,6 +36,7 @@
                     android:id="@+id/tv_sdtKH"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/holo_orange_dark"
                     android:text="0123456789"
                     android:textStyle="bold|italic" />
 
@@ -43,6 +44,7 @@
                     android:id="@+id/tv_diachiKH"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/holo_orange_dark"
                     android:text="Hồng Dân - Bạc Liêu"
                     android:textStyle="bold|italic" />
 

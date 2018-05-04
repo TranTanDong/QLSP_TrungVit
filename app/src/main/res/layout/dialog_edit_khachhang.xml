@@ -7,13 +7,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SỬA KHÁCH HÀNG"
-        android:textStyle="italic|bold"
-        android:textSize="32dp"
-        android:paddingTop="10dp"
+        android:layout_gravity="center"
         android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:text="SỬA KHÁCH HÀNG"
         android:textColor="@android:color/holo_orange_dark"
-        android:layout_gravity="center"/>
+        android:textSize="32dp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"

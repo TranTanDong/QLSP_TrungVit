@@ -29,7 +29,7 @@
             android:textColor="@android:color/holo_orange_dark"
             android:text="Trứng Mua Vào"
             android:textSize="32dp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -53,10 +53,10 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:paddingEnd="20dp"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="@android:color/holo_orange_dark"
             android:text="4500"
             android:textSize="24dp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -78,25 +78,25 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:paddingEnd="20dp"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="@android:color/holo_orange_dark"
             android:text="1700"
             android:textSize="24dp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@android:color/holo_blue_dark"/>
+        android:background="@android:color/holo_orange_dark"/>
 
     <TextView
         android:id="@+id/tv_tinhTien_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="7.650.000"
-        android:textColor="@android:color/holo_blue_light"
-        android:textStyle="bold|italic"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textStyle="bold"
         android:textSize="24dp"
         android:gravity="right"
         android:paddingRight="20dp"/>
@@ -120,10 +120,10 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingEnd="20dp"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="@android:color/holo_orange_dark"
             android:text="Cồ"
             android:textSize="24dp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -146,10 +146,10 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:paddingEnd="20dp"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="@android:color/holo_orange_dark"
             android:text="20/04/2018"
             android:textSize="24dp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -172,10 +172,10 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingEnd="20dp"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="@android:color/holo_orange_dark"
             android:text="Bay Lên Không"
             android:textSize="24dp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 

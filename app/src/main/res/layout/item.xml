@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="10dp"
     android:layout_margin="2dp"
-    app:cardBackgroundColor="@android:color/darker_gray"
+    app:cardBackgroundColor="@android:color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
@@ -25,9 +25,10 @@
                 android:id="@+id/tv_tenKHSP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dương Lữ Điện"
-                android:textSize="18dp"
-                android:textStyle="bold|italic" />
+                android:text="1. Dương Lữ Điện"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,9 +45,9 @@
                     android:paddingStart="10dp"
                     android:paddingTop="3dp"
                     android:text="100.000"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/holo_orange_dark"
                     android:textSize="18dp"
-                    android:textStyle="bold|italic" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -54,9 +55,9 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="x"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/holo_orange_dark"
                     android:textSize="16dp"
-                    android:textStyle="bold|italic" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_donGiaSP"
@@ -65,9 +66,9 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="2.400"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/holo_orange_dark"
                     android:textSize="18dp"
-                    android:textStyle="bold|italic" />
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -88,9 +89,9 @@
                 android:gravity="center"
                 android:paddingTop="3dp"
                 android:text="2018-02-02"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/holo_orange_dark"
                 android:textSize="18dp"
-                android:textStyle="bold|italic" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_loaiSP"
@@ -98,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Cồ"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/holo_orange_dark"
                 android:textSize="16dp"
                 android:textStyle="bold|italic" />
 
@@ -112,7 +113,7 @@
                 android:text="23.000.000đ"
                 android:textColor="@android:color/holo_orange_dark"
                 android:textSize="18dp"
-                android:textStyle="bold|italic" />
+                android:textStyle="bold" />
 
 
         </LinearLayout>

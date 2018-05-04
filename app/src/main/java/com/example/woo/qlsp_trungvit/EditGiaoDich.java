@@ -201,10 +201,12 @@ public class EditGiaoDich extends AppCompatActivity {
         }
     }
 
+
     private void addItemSpinnerKH() {
+        arrayList.clear();
+        arrayList.add("GUEST");
         database = new Database(EditGiaoDich.this);
         Cursor data = database.GetData("SELECT * FROM KhachHang");
-        arrayList.clear();
         while (data.moveToNext()){
             String TenKH = data.getString(1);
             arrayList.add(TenKH);

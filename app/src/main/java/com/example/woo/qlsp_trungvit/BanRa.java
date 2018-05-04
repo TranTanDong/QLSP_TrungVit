@@ -68,7 +68,7 @@ public class BanRa extends AppCompatActivity implements ISanPham {
             String tenKH;
             if (datatenKH.moveToFirst()){
                 tenKH = datatenKH.getString(1);
-            } else tenKH = "";
+            } else tenKH = "GUEST";
 
             sPBanRas.add(new ListSanPham(Ma, SL, DG, L, TG, tenKH));
         }
@@ -175,7 +175,7 @@ public class BanRa extends AppCompatActivity implements ISanPham {
             String tenKH;
             if (datatenKH.moveToFirst()){
                 tenKH = datatenKH.getString(1);
-            } else tenKH = "";
+            } else tenKH = "GUEST";
 
             //Lấy tháng năm hiện tại để so sánh
             Cursor d = database.GetData("SELECT DATE('now')");
@@ -225,7 +225,7 @@ public class BanRa extends AppCompatActivity implements ISanPham {
             String tenKH;
             if (datatenKH.moveToFirst()){
                 tenKH = datatenKH.getString(1);
-            } else tenKH = "";
+            } else tenKH = "GUEST";
 
             sPBanRas.add(new ListSanPham(Ma, SL, DG, L, TG, tenKH));
         }

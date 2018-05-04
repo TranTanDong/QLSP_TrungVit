@@ -118,7 +118,7 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             datatenKH.moveToFirst();
             String tenKH = datatenKH.getString(1);
-            muaSanPhams.add(new ListSanPham(Ma, SL, DG, L, TG, null));
+            muaSanPhams.add(new ListSanPham(Ma, SL, DG, L, TG, ""));
         }
         data.close();
         muaAdapter.notifyDataSetChanged();
@@ -153,7 +153,7 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             datatenKH.moveToFirst();
             String tenKH = datatenKH.getString(1);
-            banSanPhams.add(new ListSanPham(Ma, SL, DG, L, TG, null));
+            banSanPhams.add(new ListSanPham(Ma, SL, DG, L, TG, ""));
         }
         data.close();
         banAdapter.notifyDataSetChanged();

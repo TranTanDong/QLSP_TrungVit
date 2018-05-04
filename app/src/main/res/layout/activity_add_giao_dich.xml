@@ -33,9 +33,9 @@
                 android:maxLength="6"
                 android:gravity="right"
                 android:inputType="number"
-                android:textColor="@android:color/holo_blue_light"
+                android:textColor="@android:color/holo_orange_dark"
                 android:textSize="24dp"
-                android:textStyle="bold|italic" />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -67,9 +67,9 @@
                 android:maxLength="4"
                 android:gravity="right"
                 android:inputType="number"
-                android:textColor="@android:color/holo_blue_light"
+                android:textColor="@android:color/holo_orange_dark"
                 android:textSize="24dp"
-                android:textStyle="bold|italic" />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -132,9 +132,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="right"
-                android:textColor="@android:color/holo_blue_light"
+                android:textColor="@android:color/holo_orange_dark"
                 android:textSize="24dp"
-                android:textStyle="bold|italic" />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -195,9 +195,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="@android:color/holo_orange_dark"
             android:textSize="24dp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 
