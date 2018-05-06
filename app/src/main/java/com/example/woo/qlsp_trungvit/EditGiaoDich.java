@@ -108,9 +108,9 @@ public class EditGiaoDich extends AppCompatActivity {
             Toast.makeText(this, "Hãy nhập Đơn giá!!!", Toast.LENGTH_LONG).show();
         }else {
             long s = 0;
-            int donGia, soLuong;
-            donGia = Integer.parseInt(et_donGia_E.getText().toString());
-            soLuong = Integer.parseInt(et_soLuong_E.getText().toString());
+            long donGia, soLuong;
+            donGia = Long.parseLong(et_donGia_E.getText().toString());
+            soLuong = Long.parseLong(et_soLuong_E.getText().toString());
             s = soLuong*donGia;
             tv_tinhTien_E.setText(dcf.format(s)+"đ  ");
 
@@ -197,14 +197,17 @@ public class EditGiaoDich extends AppCompatActivity {
             tv_thoiGian_E.setText(TG);
             spn_khachHang_E.setSelection(arrayList.indexOf(KH));
             spn_loai_E.setSelection(arrayL.indexOf(L));
-            tv_tinhTien_E.setText(dcf.format(SL*DG)+"đ  ");
+            long s, sl, dg;
+            sl = SL;
+            dg = DG;
+            s = sl*dg;
+            tv_tinhTien_E.setText(dcf.format(s)+"đ  ");
         }
     }
 
 
     private void addItemSpinnerKH() {
         arrayList.clear();
-        arrayList.add("GUEST");
         database = new Database(EditGiaoDich.this);
         Cursor data = database.GetData("SELECT * FROM KhachHang");
         while (data.moveToNext()){

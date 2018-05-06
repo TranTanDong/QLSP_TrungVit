@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Quản Lý Sản Phẩm</string>
+    <string name="app_name">Quản Lý Trứng</string>
     <string name="app_mua">Danh Sách Mua Vào</string>
     <string name="app_khachhang">Danh Sách Khách Hàng</string>
     <string name="app_addkhachhang">Thêm khách hàng</string>

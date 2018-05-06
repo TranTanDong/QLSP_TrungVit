@@ -111,7 +111,6 @@ public class AddGiaoDich extends AppCompatActivity {
 
     private void addItemSpinnerKH() {
         arrayList.clear();
-        arrayList.add("GUEST");
         database = new Database(AddGiaoDich.this);
         Cursor data = database.GetData("SELECT * FROM KhachHang");
         while (data.moveToNext()){
@@ -205,9 +204,9 @@ public class AddGiaoDich extends AppCompatActivity {
             Toast.makeText(this, "Hãy nhập đơn giá!", Toast.LENGTH_LONG).show();
         }else {
             long s = 0;
-            int donGia, soLuong;
-            donGia = Integer.parseInt(et_donGia.getText().toString());
-            soLuong = Integer.parseInt(et_soLuong.getText().toString());
+            long donGia, soLuong;
+            donGia = Long.parseLong(et_donGia.getText().toString());
+            soLuong = Long.parseLong(et_soLuong.getText().toString());
             s = soLuong*donGia;
             tv_tinhTien.setText(dcf.format(s)+"đ  ");
 

@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class Details extends AppCompatActivity {
 
     private TextView    tv_soLuong_detail,
@@ -26,6 +28,8 @@ public class Details extends AppCompatActivity {
     private int SL, DG, M, C;
     private String L, TG, KH;
     private Intent dIntent;
+
+    private DecimalFormat dcf = new DecimalFormat("#,###,###,###");
 
     public static final int REQUEST_EDIT = 6;
     public static final int RESULT_EDITMV = 7;
@@ -91,12 +95,12 @@ public class Details extends AppCompatActivity {
             M = dIntent.getIntExtra("MD", -1);
 
 
-            tv_soLuong_detail.setText(String.valueOf(SL));
-            tv_donGia_detail.setText(String.valueOf(DG));
+            tv_soLuong_detail.setText(dcf.format(SL));
+            tv_donGia_detail.setText(dcf.format(DG));
             tv_loai_detail.setText(L);
             tv_thoiGian_detail.setText(TG);
             tv_khachHang_detail.setText(KH);
-            tv_tinhTien_detail.setText(String.valueOf(SL*DG));
+            tv_tinhTien_detail.setText(dcf.format(SL*DG)+"đ");
         }
 
         if (C==BanRa.CODE_REQUEST_DETAILBR){

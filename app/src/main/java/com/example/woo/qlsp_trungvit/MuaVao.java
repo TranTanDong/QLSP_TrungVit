@@ -53,8 +53,8 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
     private void showAllListMuaVao() {
         Cursor data = database.GetData("SELECT * FROM MuaVao ORDER BY MV_MA DESC");
         listSanPhams.clear();
-        int sumSL = 0;
-        int sumTien = 0;
+        long sumSL = 0;
+        long sumTien = 0;
         double avgDG;
         while (data.moveToNext()){
             int Ma = data.getInt(0);
@@ -64,8 +64,9 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
             String TG = data.getString(4);
             int MaKH = data.getInt(5);
 
-            sumTien += SL*DG;
-            sumSL += SL;
+            long sl = SL, dg = DG;
+            sumTien += sl*dg;
+            sumSL += sl;
 
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             String tenKH;
@@ -148,8 +149,8 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
     private void showListMuaVaoToMonth() {
         Cursor data = database.GetData("SELECT * FROM MuaVao ORDER BY MV_MA DESC");
         listSanPhams.clear();
-        int sumSL = 0;
-        int sumTien = 0;
+        long sumSL = 0;
+        long sumTien = 0;
         double avgDG;
         while (data.moveToNext()){
             int Ma = data.getInt(0);
@@ -172,8 +173,9 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
             day = day.substring(0, 7);
 
             if (day.equals(TG.substring(0,7))){
-                sumTien += SL*DG;
-                sumSL += SL;
+                long sl = SL, dg = DG;
+                sumTien += sl*dg;
+                sumSL += sl;
                 listSanPhams.add(new ListSanPham(Ma, SL, DG, L, TG, tenKH));
             }
 
@@ -195,8 +197,8 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
     private void showListMuaVaoToDay() {
         Cursor data = database.GetData("SELECT * FROM MuaVao WHERE MV_THOIGIAN=DATE('now') ORDER BY MV_MA DESC");
         listSanPhams.clear();
-        int sumSL = 0;
-        int sumTien = 0;
+        long sumSL = 0;
+        long sumTien = 0;
         double avgDG;
         while (data.moveToNext()){
             int Ma = data.getInt(0);
@@ -206,8 +208,9 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
             String TG = data.getString(4);
             int MaKH = data.getInt(5);
 
-            sumTien += SL*DG;
-            sumSL += SL;
+            long sl = SL, dg = DG;
+            sumTien += sl*dg;
+            sumSL += sl;
 
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             String tenKH;
@@ -278,7 +281,7 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
             String sql = "UPDATE MuaVao SET MV_SOLG="+SL+", MV_DONGIA="+DG+", MV_LOAI='"+L+"', MV_THOIGIAN='"+TG+"', MV_MAKH="+MaKH+" WHERE MV_MA="+M;
             database.QueryData(sql);
             showAllListMuaVao();
-            Toast.makeText(MuaVao.this, "Sửa thành công!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MuaVao.this, "Đã sửa thành công!", Toast.LENGTH_SHORT).show();
             Log.i("InfMV", SL+L+DG+KH+TG+M+"\n"+sql);
 
         }

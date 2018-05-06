@@ -1,6 +1,7 @@
 package com.example.woo.qlsp_trungvit;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +18,8 @@ public class AddKhachHang extends AppCompatActivity {
     EditText et_tenkhachhang, et_sdt, et_diachi;
     Button btn_huy, btn_them;
 
+    Database database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,8 @@ public class AddKhachHang extends AppCompatActivity {
     }
 
     private void addControls() {
+        database = new Database(AddKhachHang.this);
+
         et_tenkhachhang = (EditText)findViewById(R.id.et_tenKH);
         et_sdt = (EditText)findViewById(R.id.et_sdt);
         et_diachi = (EditText)findViewById(R.id.et_diachi);
@@ -55,15 +60,29 @@ public class AddKhachHang extends AppCompatActivity {
 
     private void xuLyThemKH() {
         if (TextUtils.isEmpty(et_tenkhachhang.getText())){
-            Toast.makeText(this, "Vui lòng nhập Tên Khách Hàng!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Vui lòng nhập tên khách hàng!", Toast.LENGTH_SHORT).show();
         }
         else {
-            Intent mIntent = getIntent();
-            mIntent.putExtra("TenKH", et_tenkhachhang.getText().toString());
-            mIntent.putExtra("SDTKH", et_sdt.getText().toString());
-            mIntent.putExtra("DiaChiKH", et_diachi.getText().toString());
-            setResult(KhachHang.CODE_RESULT_KHACHHANG, mIntent);
-            finish();
+            Cursor dttenKH = database.GetData("SELECT KH_TEN FROM KhachHang");
+            boolean tmp = true;
+
+            while (dttenKH.moveToNext()){
+                String KH_TEN = dttenKH.getString(0);
+                if (KH_TEN.equals(et_tenkhachhang.getText().toString())){
+                    Toast.makeText(AddKhachHang.this, "Tên khách hàng đã có, vui lòng chọn tên khác!", Toast.LENGTH_LONG).show();
+                    tmp = false;
+                    break;
+                }
+            }
+
+            if (tmp == true){
+                Intent mIntent = getIntent();
+                mIntent.putExtra("TenKH", et_tenkhachhang.getText().toString());
+                mIntent.putExtra("SDTKH", et_sdt.getText().toString());
+                mIntent.putExtra("DiaChiKH", et_diachi.getText().toString());
+                setResult(KhachHang.CODE_RESULT_KHACHHANG, mIntent);
+                finish();
+            }
         }
     }
 

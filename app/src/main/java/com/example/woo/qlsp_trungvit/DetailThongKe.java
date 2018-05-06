@@ -50,8 +50,8 @@ public class DetailThongKe extends AppCompatActivity implements ISanPham {
 
         Cursor data = database.GetData("SELECT * FROM "+tabname+" ORDER BY "+col+" DESC");
         detailThongKes.clear();
-        int sumSL = 0;
-        int sumTien = 0;
+        long sumSL = 0;
+        long sumTien = 0;
         double avgDG;
 
         int l = Time.length();

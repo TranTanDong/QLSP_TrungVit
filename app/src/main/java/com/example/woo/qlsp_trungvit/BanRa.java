@@ -50,8 +50,8 @@ public class BanRa extends AppCompatActivity implements ISanPham {
     private void showAllListBanRa() {
         Cursor data = database.GetData("SELECT * FROM BanRa ORDER BY BR_MA DESC");
         sPBanRas.clear();
-        int sumSL = 0;
-        int sumTien = 0;
+        long sumSL = 0;
+        long sumTien = 0;
         double avgDG;
         while (data.moveToNext()){
             int Ma = data.getInt(0);
@@ -61,8 +61,9 @@ public class BanRa extends AppCompatActivity implements ISanPham {
             String TG = data.getString(4);
             int MaKH = data.getInt(5);
 
-            sumTien += SL*DG;
-            sumSL += SL;
+            long sl = SL, dg = DG;
+            sumTien += sl*dg;
+            sumSL += sl;
 
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             String tenKH;
@@ -160,8 +161,8 @@ public class BanRa extends AppCompatActivity implements ISanPham {
     private void showListBanRaToMonth() {
         Cursor data = database.GetData("SELECT * FROM BanRa ORDER BY BR_MA DESC");
         sPBanRas.clear();
-        int sumSL = 0;
-        int sumTien = 0;
+        long sumSL = 0;
+        long sumTien = 0;
         double avgDG;
         while (data.moveToNext()){
             int Ma = data.getInt(0);
@@ -184,8 +185,9 @@ public class BanRa extends AppCompatActivity implements ISanPham {
             day = day.substring(0, 7);
 
             if (day.equals(TG.substring(0,7))){
-                sumTien += SL*DG;
-                sumSL += SL;
+                long sl = SL, dg = DG;
+                sumTien += sl*dg;
+                sumSL += sl;
                 sPBanRas.add(new ListSanPham(Ma, SL, DG, L, TG, tenKH));
             }
 
@@ -207,8 +209,8 @@ public class BanRa extends AppCompatActivity implements ISanPham {
     private void showListBanRaToDay() {
         Cursor data = database.GetData("SELECT * FROM BanRa WHERE BR_THOIGIAN=DATE('now') ORDER BY BR_MA DESC");
         sPBanRas.clear();
-        int sumSL = 0;
-        int sumTien = 0;
+        long sumSL = 0;
+        long sumTien = 0;
         double avgDG;
         while (data.moveToNext()){
             int Ma = data.getInt(0);
@@ -218,8 +220,9 @@ public class BanRa extends AppCompatActivity implements ISanPham {
             String TG = data.getString(4);
             int MaKH = data.getInt(5);
 
-            sumTien += SL*DG;
-            sumSL += SL;
+            long sl = SL, dg = DG;
+            sumTien += sl*dg;
+            sumSL += sl;
 
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             String tenKH;

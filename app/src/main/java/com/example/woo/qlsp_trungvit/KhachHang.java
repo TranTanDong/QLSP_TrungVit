@@ -109,6 +109,7 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
 //        database.QueryData("INSERT INTO KhachHang VALUES(null, 'Mơ Văn Mộng', '0125458740', 'P1-ST')");
 //        database.QueryData("INSERT INTO KhachHang VALUES(null, 'Ngớ Thị Ngẩn', '0125654740', 'P2-CT')");
 //        database.QueryData("INSERT INTO KhachHang VALUES(null, 'Điên Nặng Điện', '0125348740', 'P3-VT')");
+        database.QueryData("INSERT INTO KhachHang(KH_MA, KH_TEN) SELECT 1, 'GUEST' WHERE NOT EXISTS (SELECT KH_TEN FROM KhachHang WHERE KH_MA=1 AND KH_TEN='GUEST')");
 
 
         //Thêm dữ liệu vào khachHangs để test
@@ -183,8 +184,18 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 int Ma = khachHangs.get(pos).getMaKH();
-                String sql = "DELETE FROM KhachHang WHERE KH_MA="+Ma+"";
-                Log.i("DELETE", sql);
+
+                Cursor sqlMaKHG = database.GetData("SELECT KH_MA FROM KhachHang WHERE KH_TEN='GUEST'");
+                sqlMaKHG.moveToFirst();
+                int MaKHG = sqlMaKHG.getInt(0);
+
+                String edMV = "UPDATE MuaVao SET MV_MAKH="+MaKHG+" WHERE MV_MAKH="+Ma;
+                String edBR = "UPDATE BanRa SET BR_MAKH="+MaKHG+" WHERE BR_MAKH="+Ma;
+
+                String sql = "DELETE FROM KhachHang WHERE KH_MA="+Ma;
+
+                database.QueryData(edBR);
+                database.QueryData(edMV);
                 database.QueryData(sql);
                 showAllListKhachHang();
                 Toast.makeText(KhachHang.this,"Đã xóa thành công!", Toast.LENGTH_LONG).show();

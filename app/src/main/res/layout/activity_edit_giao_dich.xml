@@ -195,7 +195,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="@android:color/holo_orange_dark"
             android:textSize="24dp"
             android:textStyle="bold|italic" />
 

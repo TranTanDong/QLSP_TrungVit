@@ -48,9 +48,10 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
         holder.tv_donGiaSP.setText(String.valueOf(dcf.format(sanPhams.get(position).getDonGia())));
         holder.tv_thoiGianSP.setText(sanPhams.get(position).getThoiGian());
         holder.tv_loaiSP.setText(sanPhams.get(position).getLoai());
-        int sl = sanPhams.get(position).getSoLuong();
-        int dg = sanPhams.get(position).getDonGia();
-        holder.tv_tinhTienSP.setText(String.valueOf(dcf.format(sl*dg))+"đ");
+        long sl = sanPhams.get(position).getSoLuong();
+        long dg = sanPhams.get(position).getDonGia();
+        long s = sl*dg;
+        holder.tv_tinhTienSP.setText(String.valueOf(dcf.format(s))+"đ");
 
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
