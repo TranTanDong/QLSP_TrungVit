@@ -44,10 +44,11 @@ public class BanRa extends AppCompatActivity implements ISanPham {
         addControls();
         addEvents();
 
-        showAllListBanRa();
+        showListBanRaToDay();
     }
 
     private void showAllListBanRa() {
+        setTitle("Danh sách bán ra");
         Cursor data = database.GetData("SELECT * FROM BanRa ORDER BY BR_MA DESC");
         sPBanRas.clear();
         long sumSL = 0;
@@ -159,6 +160,7 @@ public class BanRa extends AppCompatActivity implements ISanPham {
     }
 
     private void showListBanRaToMonth() {
+        setTitle("Bán ra tháng này");
         Cursor data = database.GetData("SELECT * FROM BanRa ORDER BY BR_MA DESC");
         sPBanRas.clear();
         long sumSL = 0;
@@ -207,6 +209,7 @@ public class BanRa extends AppCompatActivity implements ISanPham {
     }
 
     private void showListBanRaToDay() {
+        setTitle("Bán ra hôm nay");
         Cursor data = database.GetData("SELECT * FROM BanRa WHERE BR_THOIGIAN=DATE('now') ORDER BY BR_MA DESC");
         sPBanRas.clear();
         long sumSL = 0;
@@ -265,7 +268,7 @@ public class BanRa extends AppCompatActivity implements ISanPham {
             String sql = "INSERT INTO BanRa VALUES(null, "+SL+", "+DG+", '"+L+"', '"+TG+"', "+MaKH+")";
 //            Log.i("INSERT1", sql);
             database.QueryData(sql);
-            showAllListBanRa();
+            showListBanRaToDay();
             Toast.makeText(BanRa.this, "Đã thêm thành công!", Toast.LENGTH_SHORT).show();
         }
 
@@ -274,7 +277,7 @@ public class BanRa extends AppCompatActivity implements ISanPham {
             //Log.i("DL", String.valueOf(MaGD));
             String sql = "DELETE FROM BanRa WHERE BR_MA="+MaGD;
             database.QueryData(sql);
-            showAllListBanRa();
+            showListBanRaToDay();
             Toast.makeText(BanRa.this,"Đã xóa thành công!", Toast.LENGTH_LONG).show();
         }
 
@@ -292,7 +295,7 @@ public class BanRa extends AppCompatActivity implements ISanPham {
 
             String sql = "UPDATE BanRa SET BR_SOLG="+SL+", BR_DONGIA="+DG+", BR_LOAI='"+L+"', BR_THOIGIAN='"+TG+"', BR_MAKH="+MaKH+" WHERE BR_MA="+M;
             database.QueryData(sql);
-            showAllListBanRa();
+            showListBanRaToDay();
             Toast.makeText(BanRa.this, "Đã sửa thành công!", Toast.LENGTH_SHORT).show();
         }
 

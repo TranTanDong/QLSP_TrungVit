@@ -122,7 +122,7 @@ public class ThongKe extends AppCompatActivity implements IThongKeMV, IThongKeBR
             }
         }
         data.close();
-        Collections.sort(listTimeThongKeMV);
+        Collections.sort(listTimeThongKeMV, Collections.<String>reverseOrder());
         thongKeMVAdapter.notifyDataSetChanged();
     }
 
@@ -138,7 +138,7 @@ public class ThongKe extends AppCompatActivity implements IThongKeMV, IThongKeBR
             }
         }
         data.close();
-        Collections.sort(listTimeThongKeBR);
+        Collections.sort(listTimeThongKeBR, Collections.<String>reverseOrder());
         thongKeBRAdapter.notifyDataSetChanged();
     }
 

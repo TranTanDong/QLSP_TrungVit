@@ -47,10 +47,11 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
         addControls();
         addEvents();
 
-        showAllListMuaVao();
+        showListMuaVaoToDay();
     }
 
     private void showAllListMuaVao() {
+        setTitle("Danh sách mua vào");
         Cursor data = database.GetData("SELECT * FROM MuaVao ORDER BY MV_MA DESC");
         listSanPhams.clear();
         long sumSL = 0;
@@ -147,6 +148,7 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
     }
 
     private void showListMuaVaoToMonth() {
+        setTitle("Mua vào tháng này");
         Cursor data = database.GetData("SELECT * FROM MuaVao ORDER BY MV_MA DESC");
         listSanPhams.clear();
         long sumSL = 0;
@@ -195,6 +197,7 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
     }
 
     private void showListMuaVaoToDay() {
+        setTitle("Mua vào hôm nay");
         Cursor data = database.GetData("SELECT * FROM MuaVao WHERE MV_THOIGIAN=DATE('now') ORDER BY MV_MA DESC");
         listSanPhams.clear();
         long sumSL = 0;
@@ -253,7 +256,7 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
             String sql = "INSERT INTO MuaVao VALUES(null, "+SL+", "+DG+", '"+L+"', '"+TG+"', "+MaKH+")";
             Log.i("INSERT1", sql);
             database.QueryData(sql);
-            showAllListMuaVao();
+            showListMuaVaoToDay();
             Toast.makeText(MuaVao.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
         }
 
@@ -262,7 +265,7 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
             Log.i("DL", String.valueOf(MaGD));
             String sql = "DELETE FROM MuaVao WHERE MV_MA="+MaGD+"";
             database.QueryData(sql);
-            showAllListMuaVao();
+            showListMuaVaoToDay();
             Toast.makeText(MuaVao.this,"Đã xóa thành công!", Toast.LENGTH_LONG).show();
         }
 
@@ -280,7 +283,7 @@ public class MuaVao extends AppCompatActivity implements ISanPham {
 
             String sql = "UPDATE MuaVao SET MV_SOLG="+SL+", MV_DONGIA="+DG+", MV_LOAI='"+L+"', MV_THOIGIAN='"+TG+"', MV_MAKH="+MaKH+" WHERE MV_MA="+M;
             database.QueryData(sql);
-            showAllListMuaVao();
+            showListMuaVaoToDay();
             Toast.makeText(MuaVao.this, "Đã sửa thành công!", Toast.LENGTH_SHORT).show();
             Log.i("InfMV", SL+L+DG+KH+TG+M+"\n"+sql);
 
