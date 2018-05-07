@@ -58,8 +58,7 @@
             android:parentActivityName=".KhachHang"></activity>
         <activity
             android:name=".DetailThongKe"
-            android:label="Chi Tiết Thống Kê"
-            android:parentActivityName=".ThongKe"></activity>
+            android:label="Chi Tiết Thống Kê"></activity>
     </application>
 
 </manifest>

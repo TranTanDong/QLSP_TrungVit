@@ -46,12 +46,11 @@ public class AddGiaoDich extends AppCompatActivity {
     private ArrayList<String> arrayList = new ArrayList<String>();
     private String[] arrLoai = {"Cồ", "Lạc", "So", "Lộn", "Giữa", "Ngang", "Dập", "Dạc", "Thúi", "Xác", "Lỡ"};
 
-    private int lastesSelected = -1; //Vị trí click Spinner
     private int codeType;
 
     private Intent mIntent;
 
-    Database database;
+    private Database database;
 
 
     @Override
@@ -139,33 +138,6 @@ public class AddGiaoDich extends AppCompatActivity {
             }
         });
 
-        //Xử lý click Spinner spn_khachHang
-        spn_khachHang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //Toast.makeText(AddGiaoDich.this, "Bạn vừa chọn "+arrayList.get(i), Toast.LENGTH_LONG).show();
-                lastesSelected = i;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        //Xử lý click Spinner spn_loai
-        spn_loai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //Toast.makeText(AddGiaoDich.this, "Bạn vừa chọn "+arrLoai[i].toString(), Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
         //Xử lý hủy thêm Giao Dịch
         btn_huyGiaoDich.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,7 +151,6 @@ public class AddGiaoDich extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 xuLyLuuGiaoDich();
-                //Toast.makeText(AddGiaoDich.this, "Click làm tao đau rồi đó!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -199,7 +170,7 @@ public class AddGiaoDich extends AppCompatActivity {
 
     private void xuLyTinhTien() {
         if (TextUtils.isEmpty(et_soLuong.getText())){
-            Toast.makeText(this, "Hãy nhập Số lượng!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Hãy nhập số lượng!", Toast.LENGTH_LONG).show();
         }else if (TextUtils.isEmpty(et_donGia.getText())){
             Toast.makeText(this, "Hãy nhập đơn giá!", Toast.LENGTH_LONG).show();
         }else {

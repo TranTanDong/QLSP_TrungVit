@@ -272,7 +272,7 @@ public class BanRa extends AppCompatActivity implements ISanPham {
         if (requestCode==CODE_REQUEST_DETAILBR && resultCode==CODE_RESULT_DETAILBR){
             int MaGD = data.getIntExtra("MaDelete", -1);
             //Log.i("DL", String.valueOf(MaGD));
-            String sql = "DELETE FROM BanRa WHERE BR_MA="+MaGD+"";
+            String sql = "DELETE FROM BanRa WHERE BR_MA="+MaGD;
             database.QueryData(sql);
             showAllListBanRa();
             Toast.makeText(BanRa.this,"Đã xóa thành công!", Toast.LENGTH_LONG).show();
@@ -294,7 +294,6 @@ public class BanRa extends AppCompatActivity implements ISanPham {
             database.QueryData(sql);
             showAllListBanRa();
             Toast.makeText(BanRa.this, "Đã sửa thành công!", Toast.LENGTH_SHORT).show();
-            Log.i("InfBR", SL+L+DG+KH+TG+M+"\n"+sql);
         }
 
     }

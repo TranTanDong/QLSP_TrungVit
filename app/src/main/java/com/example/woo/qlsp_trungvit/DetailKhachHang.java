@@ -101,8 +101,8 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
     private void showListMuaVaoOfKhachHang() {
         Cursor data = database.GetData("SELECT * FROM MuaVao WHERE MV_MAKH="+MA+" ORDER BY MV_MA DESC");
         muaSanPhams.clear();
-        int sumSL = 0;
-        int sumTien = 0;
+        long sumSL = 0;
+        long sumTien = 0;
         double avgDG;
         while (data.moveToNext()){
             int Ma = data.getInt(0);
@@ -112,8 +112,9 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
             String TG = data.getString(4);
             int MaKH = data.getInt(5);
 
-            sumTien += SL*DG;
-            sumSL += SL;
+            long sl = SL, dg = DG;
+            sumTien += sl*dg;
+            sumSL += sl;
 
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             datatenKH.moveToFirst();
@@ -136,8 +137,8 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
     private void showListBanRaOfKhachHang() {
         Cursor data = database.GetData("SELECT * FROM BanRa WHERE BR_MAKH="+MA+" ORDER BY BR_MA DESC");
         banSanPhams.clear();
-        int sumSL = 0;
-        int sumTien = 0;
+        long sumSL = 0;
+        long sumTien = 0;
         double avgDG;
         while (data.moveToNext()){
             int Ma = data.getInt(0);
@@ -147,8 +148,9 @@ public class DetailKhachHang extends AppCompatActivity implements ISanPham{
             String TG = data.getString(4);
             int MaKH = data.getInt(5);
 
-            sumTien += SL*DG;
-            sumSL += SL;
+            long sl = SL, dg = DG;
+            sumTien += sl*dg;
+            sumSL += sl;
 
             Cursor datatenKH = database.GetData("SELECT * FROM KhachHang WHERE KH_MA="+MaKH+"");
             datatenKH.moveToFirst();
