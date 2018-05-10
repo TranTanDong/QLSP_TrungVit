@@ -1,6 +1,7 @@
 package com.example.woo.qlsp_trungvit.Adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,11 @@ import java.util.ArrayList;
 
 public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.KhachHangViewHolder> {
 
-    KhachHang context;
-    ArrayList<ListKhachHang> khachHangs;
-    IKhachHang iKhachHang;
+    private KhachHang context;
+    private ArrayList<ListKhachHang> khachHangs;
+    private IKhachHang iKhachHang;
+
+    private boolean btnVisible = false;
 
 
     public KhachHangAdapter(KhachHang context, ArrayList<ListKhachHang> khachHangs, IKhachHang iKhachHang){
@@ -47,12 +50,22 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.Khac
         holder.tv_sdtKH.setText(khachHang.getSdtKH());
         holder.tv_diachiKH.setText(khachHang.getDiachiKH());
 
+//        if (holder.tv_tenKH.getText().equals("GUEST")){
+//            holder.btn_Xoa.setVisibility(View.INVISIBLE);
+//            holder.btn_Sua.setVisibility(View.INVISIBLE);
+//        }
+        if (TextUtils.isEmpty(holder.tv_sdtKH.getText())){
+            holder.btn_Goi.setVisibility(View.INVISIBLE);
+        }
 
         //Xử lý Click Xóa, Gọi, ClickItem
         holder.btn_Goi.setTag(position);
         holder.btn_Xoa.setTag(position);
         holder.itemView.setTag(position);
         holder.btn_Sua.setTag(position);
+
+
+
         holder.btn_Goi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,11 +98,6 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.Khac
             }
         });
 
-        if(khachHang.getTenKH().equals("GUEST")){
-            holder.btn_Sua.setVisibility(View.INVISIBLE);
-            holder.btn_Goi.setVisibility(View.INVISIBLE);
-            holder.btn_Xoa.setVisibility(View.INVISIBLE);
-        }
 
     }
 

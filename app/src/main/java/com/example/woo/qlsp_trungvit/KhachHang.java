@@ -30,6 +30,7 @@ import com.example.woo.qlsp_trungvit.Interface.IKhachHang;
 import com.example.woo.qlsp_trungvit.Model.ListKhachHang;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class KhachHang extends AppCompatActivity implements IKhachHang {
 
@@ -38,7 +39,7 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
     private int REQUEST_CALL_PHONE = 0;
 
     RecyclerView rcv_khachHang;
-    public static ArrayList<ListKhachHang> khachHangs = new ArrayList<>();
+    public static ArrayList<ListKhachHang> khachHangs = new ArrayList<ListKhachHang>();
     KhachHangAdapter khachHangAdapter;
     private int vt;
 
@@ -56,7 +57,7 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
     }
 
     private void showAllListKhachHang() {
-        Cursor data = database.GetData("SELECT * FROM KhachHang ORDER BY KH_TEN, KH_DIACHI");
+        Cursor data = database.GetData("SELECT * FROM KhachHang ORDER BY KH_TEN");
         khachHangs.clear();
         while (data.moveToNext()){
             int Ma = data.getInt(0);
@@ -64,11 +65,15 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
             String SDT = data.getString(2);
             String DiaChi = data.getString(3);
 
+            if (Ten.equals("GUEST")){
+                continue;
+            }
             khachHangs.add(new ListKhachHang(Ma, Ten, SDT, DiaChi));
         }
         data.close();
         khachHangAdapter.notifyDataSetChanged();
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -105,26 +110,12 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
     private void addControls() {
         database = new Database(KhachHang.this);
         database.QueryData("CREATE TABLE IF NOT EXISTS KhachHang(KH_MA INTEGER PRIMARY KEY AUTOINCREMENT, KH_TEN VARCHAR(30) NOT NULL, KH_SDT VARCHAR(11), KH_DIACHI VARCHAR(50))");
-
-//        database.QueryData("INSERT INTO KhachHang VALUES(null, 'Mơ Văn Mộng', '0125458740', 'P1-ST')");
-//        database.QueryData("INSERT INTO KhachHang VALUES(null, 'Ngớ Thị Ngẩn', '0125654740', 'P2-CT')");
-//        database.QueryData("INSERT INTO KhachHang VALUES(null, 'Điên Nặng Điện', '0125348740', 'P3-VT')");
-        database.QueryData("INSERT INTO KhachHang(KH_MA, KH_TEN) SELECT 1, 'GUEST' WHERE NOT EXISTS (SELECT KH_TEN FROM KhachHang WHERE KH_MA=1 AND KH_TEN='GUEST')");
-
-
-        //Thêm dữ liệu vào khachHangs để test
-//        khachHangs.clear();
-//        khachHangs.add(new ListKhachHang(1, "Mơ Văn Mộng", "0125458740", "P1-ST"));
-//        khachHangs.add(new ListKhachHang(2, "Ngớ Thị Ngẩn", "0125875840", "P2-CM"));
-//        khachHangs.add(new ListKhachHang(3, "Điên Nặng Điện", "0125452740", "P3-TN"));
-//        khachHangs.add(new ListKhachHang(4, "Khung Quyền Khùng", "0141458740", "P4-HN"));
-//        khachHangs.add(new ListKhachHang(5, "Ê Sắc Ế", "0125898740", "P5-QN"));
-//        khachHangs.add(new ListKhachHang(6, "Láo Văn Cá", "012543740", "P6-VT"));
-//        khachHangs.add(new ListKhachHang(7, "Bò Thị Lếch", "012587650", "P7-ĐN"));
-//        khachHangs.add(new ListKhachHang(8, "Kiếm Văn Chuyện", "0129894740", "P8-KG"));
-//        khachHangs.add(new ListKhachHang(9, "Đánh Văn Chạy", "0125890740", "P9-KH"));
-//        khachHangs.add(new ListKhachHang(10, "Chạy Thị Chú", "0123458740", "Q1-HG"));
-
+        database.QueryData("INSERT INTO KhachHang(KH_MA, KH_TEN, KH_SDT, KH_DIACHI) " +
+                "SELECT 1, 'GUEST', '', ''" +
+                "WHERE NOT EXISTS (SELECT KH_TEN " +
+                "FROM KhachHang " +
+                "WHERE KH_MA=1 AND " +
+                "KH_TEN='GUEST')");
         //Xử lý RecyclerView rcv_khachHang
         rcv_khachHang = (RecyclerView)findViewById(R.id.rcv_khachHang);
         rcv_khachHang.setLayoutManager(new LinearLayoutManager(this));
@@ -165,7 +156,6 @@ public class KhachHang extends AppCompatActivity implements IKhachHang {
             String diachiKH = data.getStringExtra("DiaChiKH");
 
             String sql = "INSERT INTO KhachHang VALUES(null, '"+tenKH+"', '"+sdtKH+"', '"+diachiKH+"')";
-            Log.i("INSERT", sql);
             database.QueryData(sql);
             showAllListKhachHang();
            // AddGiaoDich.arrayList.add(tenKH);

@@ -75,6 +75,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addControls() {
+        Database database = new Database(MainActivity.this);
+        String sql = "CREATE TABLE IF NOT EXISTS MuaVao( " +
+                "MV_MA INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "MV_SOLG INTEGER NOT NULL, " +
+                "MV_DONGIA INTEGER NOT NULL, " +
+                "MV_LOAI VARCHAR(10) NOT NULL, " +
+                "MV_THOIGIAN DATE NOT NULL, " +
+                "MV_MAKH INTEGER, " +
+                "CONSTRAINT FK_MUA_KHACHHANG FOREIGN KEY (MV_MAKH) REFERENCES KhachHang (KH_MA) ON UPDATE CASCADE)";
+
+        String sql1 = "CREATE TABLE IF NOT EXISTS BanRa( " +
+                "BR_MA INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "BR_SOLG INTEGER NOT NULL, " +
+                "BR_DONGIA INTEGER NOT NULL, " +
+                "BR_LOAI VARCHAR(10) NOT NULL, " +
+                "BR_THOIGIAN DATE NOT NULL, " +
+                "BR_MAKH INTEGER, " +
+                "CONSTRAINT FK_BAN_KHACHHANG FOREIGN KEY (BR_MAKH) REFERENCES KhachHang (KH_MA) ON UPDATE CASCADE)";
+
+        String sql2 = "CREATE TABLE IF NOT EXISTS KhachHang(" +
+                "KH_MA INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "KH_TEN VARCHAR(30) NOT NULL, " +
+                "KH_SDT VARCHAR(11), " +
+                "KH_DIACHI VARCHAR(50))";
+
+        database.QueryData(sql2);
+        database.QueryData(sql);
+        database.QueryData(sql1);
+
+        database.QueryData("INSERT INTO KhachHang(KH_MA, KH_TEN, KH_SDT, KH_DIACHI) " +
+                "SELECT 1, 'GUEST', '', ''" +
+                "WHERE NOT EXISTS (SELECT KH_TEN " +
+                "FROM KhachHang " +
+                "WHERE KH_MA=1 AND " +
+                "KH_TEN='GUEST')");
+
+
+
         cv_muavao = (CardView) findViewById(R.id.cv_muavao);
         cv_banra = (CardView) findViewById(R.id.cv_banra);
         cv_khachhang = (CardView) findViewById(R.id.cv_khachhang);

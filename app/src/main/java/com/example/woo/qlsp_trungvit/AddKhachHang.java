@@ -68,7 +68,7 @@ public class AddKhachHang extends AppCompatActivity {
 
             while (dttenKH.moveToNext()){
                 String KH_TEN = dttenKH.getString(0);
-                if (KH_TEN.equals(et_tenkhachhang.getText().toString())){
+                if (KH_TEN.equals(et_tenkhachhang.getText().toString().trim())){
                     Toast.makeText(AddKhachHang.this, "Tên khách hàng đã có, vui lòng chọn tên khác!", Toast.LENGTH_LONG).show();
                     tmp = false;
                     break;
@@ -77,7 +77,7 @@ public class AddKhachHang extends AppCompatActivity {
 
             if (tmp == true){
                 Intent mIntent = getIntent();
-                mIntent.putExtra("TenKH", et_tenkhachhang.getText().toString());
+                mIntent.putExtra("TenKH", et_tenkhachhang.getText().toString().trim());
                 mIntent.putExtra("SDTKH", et_sdt.getText().toString());
                 mIntent.putExtra("DiaChiKH", et_diachi.getText().toString());
                 setResult(KhachHang.CODE_RESULT_KHACHHANG, mIntent);
