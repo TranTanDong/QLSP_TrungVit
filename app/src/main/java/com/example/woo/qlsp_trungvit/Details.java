@@ -100,7 +100,8 @@ public class Details extends AppCompatActivity {
             tv_loai_detail.setText(L);
             tv_thoiGian_detail.setText(TG);
             tv_khachHang_detail.setText(KH);
-            tv_tinhTien_detail.setText(dcf.format(SL*DG)+"đ");
+            long sl=SL, dg=DG, s=sl*dg;
+            tv_tinhTien_detail.setText(dcf.format(s)+"đ");
         }
 
         if (C==BanRa.CODE_REQUEST_DETAILBR){

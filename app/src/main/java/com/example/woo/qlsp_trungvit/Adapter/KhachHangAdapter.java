@@ -47,6 +47,7 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.Khac
         holder.tv_sdtKH.setText(khachHang.getSdtKH());
         holder.tv_diachiKH.setText(khachHang.getDiachiKH());
 
+
         //Xử lý Click Xóa, Gọi, ClickItem
         holder.btn_Goi.setTag(position);
         holder.btn_Xoa.setTag(position);
@@ -83,6 +84,12 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.Khac
                 iKhachHang.EditKhachHang(k);
             }
         });
+
+        if(khachHang.getTenKH().equals("GUEST")){
+            holder.btn_Sua.setVisibility(View.INVISIBLE);
+            holder.btn_Goi.setVisibility(View.INVISIBLE);
+            holder.btn_Xoa.setVisibility(View.INVISIBLE);
+        }
 
     }
 

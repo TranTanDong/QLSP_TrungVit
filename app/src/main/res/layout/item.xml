@@ -25,10 +25,10 @@
                 android:id="@+id/tv_tenKHSP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1. Dương Lữ Điện"
+                android:text="1. Trần Tấn Đồng"
                 android:textColor="@android:color/holo_orange_dark"
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                 />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,8 +46,7 @@
                     android:paddingTop="3dp"
                     android:text="100.000"
                     android:textColor="@android:color/holo_orange_dark"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textSize="18dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -57,7 +56,7 @@
                     android:text="x"
                     android:textColor="@android:color/holo_orange_dark"
                     android:textSize="16dp"
-                    android:textStyle="bold" />
+                   />
 
                 <TextView
                     android:id="@+id/tv_donGiaSP"
@@ -68,7 +67,7 @@
                     android:text="2.400"
                     android:textColor="@android:color/holo_orange_dark"
                     android:textSize="18dp"
-                    android:textStyle="bold" />
+                    />
 
             </LinearLayout>
 
@@ -91,7 +90,7 @@
                 android:text="2018-02-02"
                 android:textColor="@android:color/holo_orange_dark"
                 android:textSize="18dp"
-                android:textStyle="bold" />
+                />
 
             <TextView
                 android:id="@+id/tv_loaiSP"
@@ -101,7 +100,7 @@
                 android:text="Cồ"
                 android:textColor="@android:color/holo_orange_dark"
                 android:textSize="16dp"
-                android:textStyle="bold|italic" />
+                 />
 
 
             <TextView
@@ -113,7 +112,8 @@
                 android:text="23.000.000đ"
                 android:textColor="@android:color/holo_orange_dark"
                 android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textStyle="bold|italic"
+               />
 
 
         </LinearLayout>
